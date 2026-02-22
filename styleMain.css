@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: rgb(16, 12, 34);
+    
+}
+
+header {
+    background-color: rgb(47, 37, 82);
+
+    height: auto;
+
+    margin: 0;
+    padding: 0 100px;
+    width: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#headerBeforeLoad {
+    opacity: 0;
+    transform: translateY(-200px);
+    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+}
+
+header h1 {
+    padding-bottom: 20px;
+    font-weight: 900;
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+header h2 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color: rgb(255, 255, 255);
+    text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+header nav a {
+    color: aliceblue;
+    text-decoration: none;
+    margin: 10px 10px;
+
+    transition: 0.5s all;
+}
+
+header nav a:hover {
+    color: rgb(160, 160, 223);
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: blueviolet;
+    width: 80%;
+    margin: 10px auto;
+}
+
+#header-title {
+    font-family: 'Google Sans Code', 'monospace';
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.console {
+    color: lightblue;
+}
+.command {
+    color: lightcoral
+}
+.string {
+    color: gold
+}
