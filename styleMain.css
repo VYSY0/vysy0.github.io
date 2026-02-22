@@ -92,6 +92,13 @@ section hr {
     font-style: normal;
 }
 
+#header-subtitle {
+    font-family: 'Google Sans Code', 'monospace';
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+
 .console {
     color: lightblue;
 }
@@ -131,7 +138,7 @@ section {
     -2px 0 0 black;
 }
 
-section a {
+section a, section p {
     color: aliceblue;
     text-decoration: none;
     margin: 10px 0;
