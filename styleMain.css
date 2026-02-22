@@ -179,6 +179,11 @@ section h1 {
     text-align: center;
 }
 
+section iframe {
+    height: 450px;
+    width: 300px;
+}
+
 footer {
     text-align: center;
     padding: 40px 40px;
@@ -188,4 +193,90 @@ footer {
     color: grey;
 
     font-family: 'Google Sans Code', 'monospace';
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: rgb(47, 37, 82);
+  color: white;
+  
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px black solid;
+  
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.modal-content h1 {
+    text-align: center;
+        text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    0 2px 0 black,
+    2px 0 0 black,
+    0 -2px 0 black,
+    -2px 0 0 black;
+}
+.modal-content h2 {
+    text-align: center;
+        text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    0 2px 0 black,
+    2px 0 0 black,
+    0 -2px 0 black,
+    -2px 0 0 black;
+}
+
+.modal-content div {
+    text-align: center;
+    
+}
+
+.modal-content p {
+        text-shadow:
+    1px 1px 0 black,
+    -1px 1px 0 black,
+    1px -1px 0 black,
+    -1px -1px 0 black,
+    0 1px 0 black,
+    1px 0 0 black,
+    0 -1px 0 black,
+    -1px 0 0 black;
+}
+
+
+#closeModal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
 }

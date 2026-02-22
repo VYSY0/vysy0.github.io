@@ -17,11 +17,29 @@
         #grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;          
+            gap: 20px;
+            transition: opacity 1s ease;          
         }
 
         #grid section {
-            aspect-ratio: 1 / 1;
+          opacity: 0;
+          aspect-ratio: 1 / 1;
+          margin: 24px 20px;
+          border: 2px black solid;
+          box-shadow: 2px 2px 20px rgb(113, 76, 134);
+
+          transition: opacity 1s ease;
+        }
+
+        #small-info {
+          font-size: smaller;
+          color: grey;
+        }
+
+        .discordInvite {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px
         }
     </style>
   </head>
@@ -45,11 +63,30 @@
         <a href="">Policy & Rules</a>
       </nav>
     </header>
+    <script type="module" src="./scripts/popUp.js"></script>
     <div id="grid">
-        <section><h1>HiraethSMP</h1></section>
-        <section><h1>Races & More</h1></section>
-        <section><h1>EndfallenSMP</h1></section>
-        <section><h1>BreadSMP</h1></section>
+        <section data-project="hiraeth">
+          <h1>HiraethSMP</h1>
+          <hr>
+          <p>HiraethSMP is an RP/Economic/Nation Realm focused on a 16+ community, but prioritizes those who are above 18.</p>
+          <div class="discordInvite">
+            <iframe src="https://discord.com/widget?id=1462491481309974822&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            <p>It encourages nationwide cooperation via events to make the gameplay more engaging.<br><br>
+               The lore in this Realm is fully written by created characters, but character creation is not mandatory. If you're a PvP or PvE player, there's an option to toggle it in Addon Settings.<br><br>
+               First time hearing about it? Join via the panel on the left! Without it, joining is not possible.
+            </p>
+          </div>
+        </section>
+        <section data-project="races" ><h1>Races & More</h1></section>
+        <section data-project="endfallen"><h1>EndfallenSMP</h1></section>
+        <section data-project="bread"><h1>BreadSMP</h1></section>
     </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal">&times;</span>
+        <div id="modalBody"></div>
+      </div>
+    </div>  
   </body>
 </html>

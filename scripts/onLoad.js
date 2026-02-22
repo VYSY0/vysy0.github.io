@@ -1,5 +1,5 @@
 import { wait } from "./actions.js";
-
+import { gridOnLoad } from "./gridOnLoad.js";
 
 async function headerAnimationOnLoad() {
     const header = document.getElementById('headerBeforeLoad');
@@ -16,6 +16,7 @@ async function headerAnimationOnLoad() {
 
     await wait(500)
     
+
     const section2 = document.getElementById('sectionBeforeLoad2');
     section2.style.transform = 'translateX(0)';
 
@@ -31,6 +32,8 @@ async function headerAnimationOnLoad() {
 
 }
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     headerAnimationOnLoad();
+    await wait(1000)
+    gridOnLoad();
 })
