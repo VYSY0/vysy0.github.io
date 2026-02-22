@@ -61,7 +61,7 @@ header nav a {
     color: aliceblue;
     text-decoration: none;
     margin: 10px 10px;
-
+font-family: 'Google Sans Code', 'monospace';
     transition: 0.5s all;
 }
 
@@ -119,7 +119,22 @@ section hr {
 
 
 
-
+#sectionBeforeLoad {
+    transform: translateX(-1500px);
+    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+}
+#sectionBeforeLoad2 {
+    transform: translateX(-1500px);
+    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+}
+#sectionBeforeLoad3 {
+    transform: translateX(-1500px);
+    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+}
+#sectionBeforeLoad4 {
+    transform: translateX(-1500px);
+    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+}
 
 section {
     background-color: rgb(47, 37, 82);
@@ -162,4 +177,15 @@ section a, section p {
 
 section h1 {
     text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 40px;
+    background-color: rgb(28, 24, 44);
+    margin-top: 10px;
+
+    color: grey;
+
+    font-family: 'Google Sans Code', 'monospace';
 }

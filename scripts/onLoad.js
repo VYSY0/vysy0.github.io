@@ -11,6 +11,24 @@ async function headerAnimationOnLoad() {
 
     header.style.opacity = 1;
 
+    const section = document.getElementById('sectionBeforeLoad');
+    section.style.transform = 'translateX(0)';
+
+    await wait(500)
+    
+    const section2 = document.getElementById('sectionBeforeLoad2');
+    section2.style.transform = 'translateX(0)';
+
+    await wait(500)
+    
+    const section3 = document.getElementById('sectionBeforeLoad3');
+    section3.style.transform = 'translateX(0)';
+
+    await wait(500)
+    
+    const section4 = document.getElementById('sectionBeforeLoad4');
+    section4.style.transform = 'translateX(0)';
+
 }
 
 window.addEventListener('load', () => {
