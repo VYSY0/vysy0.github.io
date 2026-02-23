@@ -39,6 +39,6 @@ window.addEventListener('load', async () => {
 window.addEventListener('click', async (e) => {
      const hiraethNav = document.getElementById('hiraethImage');
      if (e.target === hiraethNav ) {
-          window.open('./HiraethSMP/home.html')
+          window.open('./HiraethSMP/home.html', '_self')
      }
 })

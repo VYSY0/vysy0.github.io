@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+     <head>
+          <title>HiraethSMP</title>
+          <link rel="icon" type="image/webp" href="images/src/mainLogo.webp" />
+
+          <link rel="stylesheet" href="style/hiraethStyle2.css" />
+
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+               href="https://fonts.googleapis.com/css2?family=Italianno&display=swap"
+               rel="stylesheet"
+          />
+     </head>
+     <body id="lock-scroll">
+          <video autoplay muted loop playsinline preload="auto" id="bg-video">
+               <source
+                    src="images/src/cherry-leaves.1920x1080.mp4"
+                    type="video/mp4"
+               />
+          </video>
+
+          <script>
+               const video = document.getElementById('bg-video');
+               video.playbackRate = 0.5;
+          </script>
+          <header>
+            <div>
+            <img src="../images/hsmp/logos/logoMain.png">
+            <nav>
+                <a href="news.html">News</a>
+                <a href="">Changelogs</a>
+                <a href="">Events</a>
+                <a href="../index.html">Owner's Website</a>
+            </nav></div>
+          </header>
+
+          <section>
+            <div>
+                <h1>News Subpage</h1>
+                <p>Here, you can read newest announcments or website-only information about the server</p>
+            </div>
+          </section>
+          <section>
+            <div>
+                <h1>Latest Announcments</h1>
+                <div id="announcement"></div>
+            </div>
+          </section>
+          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+          <script>
+            fetch("announcments.md")
+            .then(res => res.text())
+            .then(md => {
+                document.getElementById('announcement').innerHTML = marked.parse(md);
+            });
+          </script>
+          <footer>
+            <a>By: VYSY0</a>
+                       <p>
+                    This work is licensed under
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                         >CC BY-NC-SA 4.0</a
+                    ><img
+                         src="https://mirrors.creativecommons.org/presskit/icons/cc.svg"
+                         alt=""
+                         style="
+                              max-width: 1em;
+                              max-height: 1em;
+                              margin-left: 0.2em;
+                         "
+                    /><img
+                         src="https://mirrors.creativecommons.org/presskit/icons/by.svg"
+                         alt=""
+                         style="
+                              max-width: 1em;
+                              max-height: 1em;
+                              margin-left: 0.2em;
+                         "
+                    /><img
+                         src="https://mirrors.creativecommons.org/presskit/icons/nc.svg"
+                         alt=""
+                         style="
+                              max-width: 1em;
+                              max-height: 1em;
+                              margin-left: 0.2em;
+                         "
+                    /><img
+                         src="https://mirrors.creativecommons.org/presskit/icons/sa.svg"
+                         alt=""
+                         style="
+                              max-width: 1em;
+                              max-height: 1em;
+                              margin-left: 0.2em;
+                         "
+                    />
+               </p>
+</footer>
+     </body>
+</html>
