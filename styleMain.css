@@ -1,308 +1,316 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     scrollbar-width: thin;
 }
-
 html {
-    scroll-behavior: smooth;
-    background-color: rgb(16, 12, 34);
-    
+     scroll-behavior: smooth;
+     background-color: rgb(16, 12, 34);
 }
 
 header {
-    background-color: rgb(47, 37, 82);
+     background-color: rgb(47, 37, 82);
 
-    height: auto;
+     height: auto;
 
-    margin: 0;
-    padding: 0 100px;
-    width: 100%;
+     margin: 0;
+     padding: 0 100px;
+     width: 100%;
 
-    display: flex;
-    flex-direction: column;
+     display: flex;
+     flex-direction: column;
 
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
 }
 
 #headerBeforeLoad {
-    opacity: 0;
-    transform: translateY(-200px);
-    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+     opacity: 0;
+     transform: translateY(-200px);
+     transition:
+          opacity 2s ease,
+          transform 1s ease,
+          width 1s ease;
 }
 
 header h1 {
-    padding-bottom: 20px;
-    font-weight: 900;
-    font-size: 60px;
-    color: rgb(255, 255, 255);
-    text-shadow: 0 0 10px rgb(0, 0, 0);
+     padding-bottom: 20px;
+     font-weight: 900;
+     font-size: 60px;
+     color: rgb(255, 255, 255);
+     text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 header h2 {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        color: rgb(255, 255, 255);
-    text-shadow: 0 0 10px rgb(0, 0, 0);
+     font-family:
+          'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans',
+          Arial, sans-serif;
+     color: rgb(255, 255, 255);
+     text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 header h3 {
-    font-family: 'Google Sans Code', 'monospace';
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-size: smaller;
-    color: rgb(160, 160, 223);
-    text-shadow: 0 0 10px rgb(0, 0, 0);
-
+     font-family: 'Google Sans Code', 'monospace';
+     font-optical-sizing: auto;
+     font-style: normal;
+     font-size: smaller;
+     color: rgb(160, 160, 223);
+     text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 header nav a {
-    color: aliceblue;
-    text-decoration: none;
-    margin: 10px 10px;
-    white-space: nowrap;
-font-family: 'Google Sans Code', 'monospace';
-    transition: 0.5s all;
+     color: aliceblue;
+     text-decoration: none;
+     margin: 10px 10px;
+     white-space: nowrap;
+     font-family: 'Google Sans Code', 'monospace';
+     transition: 0.5s all;
 }
 
 header nav a:hover {
-    color: rgb(160, 160, 223);
+     color: rgb(160, 160, 223);
 }
 
 hr {
-    border: none;
-    height: 2px;
-    background-color: blueviolet;
-    width: 80%;
-    margin: 10px auto;
+     border: none;
+     height: 2px;
+     background-color: blueviolet;
+     width: 80%;
+     margin: 10px auto;
 }
 
 section hr {
-    border: none;
-    height: 2px;
-    background-color: rgb(49, 23, 73);
-    width: 80%;
-    margin: 10px auto;
+     border: none;
+     height: 2px;
+     background-color: rgb(49, 23, 73);
+     width: 80%;
+     margin: 10px auto;
 }
 
-
 #header-title {
-    font-family: 'Google Sans Code', 'monospace';
-    font-optical-sizing: auto;
-    font-style: normal;
+     font-family: 'Google Sans Code', 'monospace';
+     font-optical-sizing: auto;
+     font-style: normal;
 }
 
 #header-subtitle {
-    font-family: 'Google Sans Code', 'monospace';
-    font-optical-sizing: auto;
-    font-style: normal;
+     font-family: 'Google Sans Code', 'monospace';
+     font-optical-sizing: auto;
+     font-style: normal;
 }
-
 
 .console {
-    color: lightblue;
+     color: lightblue;
 }
 .command {
-    color: lightcoral
+     color: lightcoral;
 }
 .string {
-    color: gold
+     color: gold;
 }
 
 .hiraeth {
-    color: rgb(223, 117, 217)
+     color: rgb(223, 117, 217);
 }
 
 .addon {
-    color: rgb(45, 100, 219)
+     color: rgb(45, 100, 219);
 }
-
-
 
 #sectionBeforeLoad {
-    transform: translateX(-1500px);
-    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+     transform: translateX(-1500px);
+     transition:
+          opacity 2s ease,
+          transform 1s ease,
+          width 1s ease;
 }
 #sectionBeforeLoad2 {
-    transform: translateX(-1500px);
-    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+     transform: translateX(-1500px);
+     transition:
+          opacity 2s ease,
+          transform 1s ease,
+          width 1s ease;
 }
 #sectionBeforeLoad3 {
-    transform: translateX(-1500px);
-    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+     transform: translateX(-1500px);
+     transition:
+          opacity 2s ease,
+          transform 1s ease,
+          width 1s ease;
 }
 #sectionBeforeLoad4 {
-    transform: translateX(-1500px);
-    transition: opacity 2s ease, transform 1s ease, width 1s ease;
+     transform: translateX(-1500px);
+     transition:
+          opacity 2s ease,
+          transform 1s ease,
+          width 1s ease;
 }
 
 section {
-    background-color: rgb(47, 37, 82);
-    margin: 10px 10px auto;
-    padding: 24px 20px;
-    border-radius: 10px;
-    color: white;
-    text-shadow:
-    2px 2px 0 black,
-    -2px 2px 0 black,
-    2px -2px 0 black,
-    -2px -2px 0 black,
-    0 2px 0 black,
-    2px 0 0 black,
-    0 -2px 0 black,
-    -2px 0 0 black;
+     background-color: rgb(47, 37, 82);
+     margin: 10px 10px auto;
+     padding: 24px 20px;
+     border-radius: 10px;
+     color: white;
+     text-shadow:
+          2px 2px 0 black,
+          -2px 2px 0 black,
+          2px -2px 0 black,
+          -2px -2px 0 black,
+          0 2px 0 black,
+          2px 0 0 black,
+          0 -2px 0 black,
+          -2px 0 0 black;
 }
 
-section a, section p {
-    color: aliceblue;
-    text-decoration: none;
-    margin: 10px 0;
-    font-family: 'Google Sans Code', 'monospace';
-    font-optical-sizing: auto;
-    font-style: normal;
+section a,
+section p {
+     color: aliceblue;
+     text-decoration: none;
+     margin: 10px 0;
+     font-family: 'Google Sans Code', 'monospace';
+     font-optical-sizing: auto;
+     font-style: normal;
 
-    text-shadow:
-    1px 1px 0 black,
-    -1px 1px 0 black,
-    1px -1px 0 black,
-    -1px -1px 0 black,
-    0 1px 0 black,
-    1px 0 0 black,
-    0 -1px 0 black,
-    -1px 0 0 black;
+     text-shadow:
+          1px 1px 0 black,
+          -1px 1px 0 black,
+          1px -1px 0 black,
+          -1px -1px 0 black,
+          0 1px 0 black,
+          1px 0 0 black,
+          0 -1px 0 black,
+          -1px 0 0 black;
 
-    transition: 0.5s all;
-
+     transition: 0.5s all;
 }
 
 section h1 {
-    text-align: center;
+     text-align: center;
 }
 
 section iframe {
-    height: 450px;
-    width: 300px;
+     height: 450px;
+     width: 300px;
 }
 
 footer {
-    text-align: center;
-    padding: 40px 40px;
-    background-color: rgb(28, 24, 44);
-    margin-top: 10px;
+     text-align: center;
+     padding: 40px 40px;
+     background-color: rgb(28, 24, 44);
+     margin-top: 10px;
 
-    color: grey;
+     color: grey;
 
-    font-family: 'Google Sans Code', 'monospace';
+     font-family: 'Google Sans Code', 'monospace';
 }
 
 .modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+     position: fixed;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.8);
+     display: flex;
+     justify-content: center;
+     align-items: center;
 
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 1000;
+     opacity: 0;
+     pointer-events: none;
+     transition: opacity 0.3s ease;
+     z-index: 1000;
 }
 
 .modal.active {
-  opacity: 1;
-  pointer-events: auto;
+     opacity: 1;
+     pointer-events: auto;
 }
 
 .modal-content {
-  background: rgb(47, 37, 82);
-  color: white;
-  
-  width: 90%;
-  max-width: 1000px;
-  max-height: 90vh;
-  overflow-y: auto;
-  padding: 30px;
-  border-radius: 12px;
-  border: 2px black solid;
-  
-  position: relative;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+     background: rgb(47, 37, 82);
+     color: white;
+
+     width: 90%;
+     max-width: 1000px;
+     max-height: 90vh;
+     overflow-y: auto;
+     padding: 30px;
+     border-radius: 12px;
+     border: 2px black solid;
+
+     position: relative;
+     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .modal-content h1 {
-    text-align: center;
-        text-shadow:
-    2px 2px 0 black,
-    -2px 2px 0 black,
-    2px -2px 0 black,
-    -2px -2px 0 black,
-    0 2px 0 black,
-    2px 0 0 black,
-    0 -2px 0 black,
-    -2px 0 0 black;
+     text-align: center;
+     text-shadow:
+          2px 2px 0 black,
+          -2px 2px 0 black,
+          2px -2px 0 black,
+          -2px -2px 0 black,
+          0 2px 0 black,
+          2px 0 0 black,
+          0 -2px 0 black,
+          -2px 0 0 black;
 }
 .modal-content h2 {
-    text-align: center;
-        text-shadow:
-    2px 2px 0 black,
-    -2px 2px 0 black,
-    2px -2px 0 black,
-    -2px -2px 0 black,
-    0 2px 0 black,
-    2px 0 0 black,
-    0 -2px 0 black,
-    -2px 0 0 black;
+     text-align: center;
+     text-shadow:
+          2px 2px 0 black,
+          -2px 2px 0 black,
+          2px -2px 0 black,
+          -2px -2px 0 black,
+          0 2px 0 black,
+          2px 0 0 black,
+          0 -2px 0 black,
+          -2px 0 0 black;
 }
 
 .modal-content div {
-    text-align: center;
-    
+     text-align: center;
 }
 
 .modal-content p {
-        text-shadow:
-    1px 1px 0 black,
-    -1px 1px 0 black,
-    1px -1px 0 black,
-    -1px -1px 0 black,
-    0 1px 0 black,
-    1px 0 0 black,
-    0 -1px 0 black,
-    -1px 0 0 black;
+     text-shadow:
+          1px 1px 0 black,
+          -1px 1px 0 black,
+          1px -1px 0 black,
+          -1px -1px 0 black,
+          0 1px 0 black,
+          1px 0 0 black,
+          0 -1px 0 black,
+          -1px 0 0 black;
 }
 
-
 #closeModal {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 28px;
-  cursor: pointer;
+     position: absolute;
+     top: 15px;
+     right: 20px;
+     font-size: 28px;
+     cursor: pointer;
 }
 
 @media (max-width: 768px) {
-    header {
-        width: auto;
-        max-width: 767px;
-    }
+     header {
+          width: auto;
+          max-width: 767px;
+     }
 
-    header nav {
-        width: 760px;
-        max-width: auto;
-    }
-    
+     header nav {
+          width: 760px;
+          max-width: auto;
+     }
 }
 
 @media (max-width: 480px) {
-    header {
-        width: auto;
-        max-width: 475px;
-    }
+     header {
+          width: auto;
+          max-width: 475px;
+     }
 
-    header nav {
-        width: auto;
-        max-width: 475px;
-    }
+     header nav {
+          width: auto;
+          max-width: 475px;
+     }
 }

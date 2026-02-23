@@ -1,9 +1,9 @@
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-const closeModal = document.getElementById("closeModal");
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.getElementById('closeModal');
 
 const projectData = {
-  hiraeth: `
+     hiraeth: `
     <h1>HiraethSMP (More Information.)</h1>
     <hr>
     <p id="small-info">Created on 23rd July 2025, it was in development since then.</p>
@@ -21,17 +21,17 @@ const projectData = {
     <img src="./images/hsmp/popup/first_ever_hsmp_msg.png">
     </div>
     `,
-  races: `
+     races: `
     <h1>Races & More</h1>
     <hr>
     <p>Placeholder</p>
   `,
-  endfallen: `
+     endfallen: `
     <h1>EndfallenSMP</h1>
     <hr>
     <p>Placeholder</p>
   `,
-  bread: `
+     bread: `
     <h1>BreadSMP</h1>
     <hr>
     <p id="small-info">Server Java. Existed in time between: 2020-2023</p>
@@ -51,25 +51,25 @@ const projectData = {
     <h1>The End..</h1>
     <p>On season 5, BreadSMP was sadly announced to be discontinued due to PC problems.<br><br>
 
-  `
+  `,
 };
 
-document.querySelectorAll("#grid section").forEach(section => {
-  section.addEventListener("click", () => {
-    const key = section.dataset.project;
-    modalBody.innerHTML = projectData[key];
-    modal.classList.add("active");
+document.querySelectorAll('#grid section').forEach((section) => {
+     section.addEventListener('click', () => {
+          const key = section.dataset.project;
+          modalBody.innerHTML = projectData[key];
+          modal.classList.add('active');
 
-    document.body.style.overflow = "hidden";
-  });
+          document.body.style.overflow = 'hidden';
+     });
 });
 
 const closeModalFunction = () => {
-  modal.classList.remove("active");
-  document.body.style.overflow = "";
+     modal.classList.remove('active');
+     document.body.style.overflow = '';
 };
 
-closeModal.addEventListener("click", closeModalFunction);
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) closeModalFunction();
+closeModal.addEventListener('click', closeModalFunction);
+modal.addEventListener('click', (e) => {
+     if (e.target === modal) closeModalFunction();
 });
