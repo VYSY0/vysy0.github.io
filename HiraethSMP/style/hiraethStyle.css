@@ -1,6 +1,123 @@
 * {
-    background-color: rgb(175, 82, 199);
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+
+body {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+
+     height: 100vh;
+}
+
+#lock-scroll {
+    overflow:hidden;
+}
+
+#bg-video {
+     position: fixed;
+     top: 0;
+     left: 0;
+
+     width: 100%;
+     height: 100%;
+
+     filter: blur(3px);
+
+     object-fit: cover; /* wypełnia ekran */
+     z-index: -1; /* pod treścią */
+}
+
+#hiraethTitle {
+     background-color: rgba(252, 168, 255, 0.521);
+
+     border: 1px solid rgba(255, 255, 255, 0.2);
+     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+     padding: 20px 20px;
+     border-radius: 20px;
+     margin-bottom: 20px;
+
+     opacity: 0;
+
+     transition: opacity 3s ease;
+}
+
+header h1 {
+     color: azure;
+     font-family: 'Italianno', cursive;
+     font-weight: 400;
+     font-style: normal;
+     text-shadow:
+          2px 2px 2px black;
+        }
+
+#startButton {
+     height: auto;
+     width: 100px;
+
+     transform: translateY(1000px);
+     opacity: 0;
+
+     transition: opacity 1s ease, transform 1s ease;
+}
+
+#startButton h1 {
+         color: rgb(252, 168, 255);
+         font-family: 'Courier New', Courier, monospace;
+          text-shadow:
+          1px 1px 0 black,
+          -1px 1px 0 black,
+          1px -1px 0 black,
+          -1px -1px 0 black,
+          0 1px 0 black,
+          1px 0 0 black,
+          0 -1px 0 black,
+          -1px 0 0 black;
+
+}
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+
+    text-shadow:
+        1px 1px 0 black,
+        -1px 1px 0 black,
+        1px -1px 0 black,
+        -1px -1px 0 black;
+
+    z-index: 10;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+#part2 {
+    position: fixed;       /* przyklejony względem okna */
+    top: 50%;              /* środek pionowy */
+    left: 50%;             /* środek poziomy */
+    transform: translate(-50%, -50%); /* dokładne wyśrodkowanie */
+    
+    background-color: rgba(252, 168, 255, 0.521);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 20px 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+
+    opacity: 0;
+    transition: opacity 1s ease; /* możesz zmienić czas */
+    z-index: 1000; /* żeby było na wierzchu */
 }

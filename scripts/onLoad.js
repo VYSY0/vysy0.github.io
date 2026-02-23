@@ -35,3 +35,10 @@ window.addEventListener('load', async () => {
      await wait(1000);
      gridOnLoad();
 });
+
+window.addEventListener('click', async (e) => {
+     const hiraethNav = document.getElementById('hiraethImage');
+     if (e.target === hiraethNav ) {
+          window.open('./HiraethSMP/home.html')
+     }
+})
