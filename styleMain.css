@@ -17,7 +17,7 @@ header {
 
     margin: 0;
     padding: 0 100px;
-    width: auto;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -61,6 +61,7 @@ header nav a {
     color: aliceblue;
     text-decoration: none;
     margin: 10px 10px;
+    white-space: nowrap;
 font-family: 'Google Sans Code', 'monospace';
     transition: 0.5s all;
 }
@@ -279,4 +280,29 @@ footer {
   right: 20px;
   font-size: 28px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    header {
+        width: auto;
+        max-width: 767px;
+    }
+
+    header nav {
+        width: 760px;
+        max-width: auto;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    header {
+        width: auto;
+        max-width: 475px;
+    }
+
+    header nav {
+        width: auto;
+        max-width: 475px;
+    }
 }
