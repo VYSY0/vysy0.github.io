@@ -1,0 +1,35 @@
+.center {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+}
+
+header img {
+  border-radius: 50px;
+  border: 1px white solid;
+}
+
+section {
+  color: rgb(56, 48, 48);
+  text-align: center;
+}
+
+section h1,
+h2 {
+  text-shadow:
+    1px 1px 0 white,
+    -1px 1px 0 white,
+    1px -1px 0 white,
+    -1px -1px 0 white,
+    0 0 10px white;
+}
+
+section a {
+  color: white;
+}

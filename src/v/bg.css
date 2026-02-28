@@ -8,6 +8,12 @@
   filter: contrast(1.1) blur(50px);
 
   object-fit: cover;
+<<<<<<< HEAD
+=======
+  pointer-events: none;
+
+  z-index: -1;
+>>>>>>> a1d2d93 (gjgjyjyf)
 
   transition: filter 5s ease;
 }

@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+#headerL {
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+#sekcjaOpa {
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+#bg {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  z-index: -1;
+
+  filter: blur(100px);
+
+  transition: filter 5s ease-in-out;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.623);
+  padding: 20px 100px;
+  margin: 20px auto;
+  max-width: 1000px;
+  border-radius: 50px;
+  border: 1px white solid;
+  box-shadow: 0 0 100px white;
+
+  text-shadow:
+    1px 1px 0 white,
+    -1px 1px 0 white,
+    1px -1px 0 white,
+    -1px -1px 0 white,
+    0 0 10px white;
+}
+
+.sekcja {
+  background-color: rgba(0, 0, 0, 0.623);
+  padding: 20px 100px;
+  margin: 20px auto;
+  max-width: 1000px;
+  border-radius: 50px;
+  border: 1px white solid;
+  box-shadow: 0 0 100px rgb(190, 166, 166);
+
+  text-shadow:
+    1px 1px 0 white,
+    -1px 1px 0 white,
+    1px -1px 0 white,
+    -1px -1px 0 white,
+    0 0 10px white;
+}
+section h1 {
+  text-align: center;
+}

@@ -3,6 +3,12 @@ html {
 }
 
 body {
+<<<<<<< HEAD
   padding: 0;
   margin: 0;
+=======
+  margin: 0;
+
+  background-color: black;
+>>>>>>> a1d2d93 (gjgjyjyf)
 }
