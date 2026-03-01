@@ -374,7 +374,7 @@ public licenses is dedicated to the public domain under the CC0 Public
 Domain Dedication. Except for the limited purpose of indicating that
 material is shared under a Creative Commons public license or as
 otherwise permitted by the Creative Commons policies published at
-creativecommons.org/policies, Creative Commons does not authorize the
+creativecommons.org/policie, Creative Commons does not authorize the
 use of the trademark "Creative Commons" or any other trademark or logo
 of Creative Commons without its prior written consent including,
 without limitation, in connection with any unauthorized modifications
