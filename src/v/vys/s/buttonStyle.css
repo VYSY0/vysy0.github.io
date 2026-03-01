@@ -1,0 +1,46 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+
+  border-radius: 20px;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(168, 168, 168, 0.5)
+  );
+
+  box-shadow: 0 0 10px white;
+
+  padding: 0 0;
+  cursor: pointer;
+  border-top: 1px solid white;
+  border-bottom: 1px solid gray;
+  min-height: 1rem;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(168, 168, 168, 0.7)
+  );
+  border-top: 1px solid gray;
+  border-bottom: 1px solid white;
+
+  box-shadow: 0 0 20px gold;
+}
+
+.button:active {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(53, 53, 53, 0.9));
+  border-top: 1px solid white;
+  border-bottom: 1px solid gray;
+}
+
+.button h2 {
+  pointer-events: none;
+  user-select: none;
+}

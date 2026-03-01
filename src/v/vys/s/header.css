@@ -6,13 +6,39 @@
   align-items: center;
 }
 
-header {
+#main-header {
   text-align: center;
+  filter: blur(20px);
+  transform: translateY(-500px);
+
+  transition:
+    transform 1s ease,
+    filter 1.5s ease,
+    height 1s ease;
+}
+
+#main-header img {
+  height: 200%;
+  width: 100%;
+  transition: height 1s ease-in-out;
+}
+
+#main-header.loaded {
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+#main-header.loaded img {
+  height: 100%;
+  width: 100%;
 }
 
 header img {
-  border-radius: 50px;
+  border-radius: 1000px;
   border: 1px white solid;
+  box-shadow:
+    5px 0 20px rgb(116, 148, 177),
+    -5px 0 20px rgb(128, 91, 91);
 }
 
 section {

@@ -7,4 +7,25 @@ body {
   margin: 0;
   margin: 0;
   background-color: black;
+  font-family: 'Quantico', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+#projects {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#projects.loaded {
+  opacity: 1;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: smaller;
 }
