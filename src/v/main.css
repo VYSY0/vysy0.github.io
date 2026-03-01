@@ -11,6 +11,43 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+#contact {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  color: white;
+  font-size: 14px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+  padding: 20px;
+  width: auto;
+  max-width: 800px;
+
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  text-shadow: 0 0 10px white;
+}
+
+#contact h1 {
+  text-align: center;
+}
+
+#contact a {
+  color: rgb(83, 83, 128);
+  text-decoration: none;
+  text-shadow:
+    1px 1px 0 white,
+    -1px 1px 0 white,
+    1px -1px 0 white,
+    -1px -1px 0 white,
+    0px 1px 0 white,
+    0px -1px 0 white,
+    1px 0px 0 white,
+    -1px 0px 0 white;
+}
+
 #projects {
   opacity: 0;
   transition: opacity 1s ease;
@@ -27,5 +64,27 @@ footer {
   color: white;
   text-align: center;
   padding: 10px;
-  font-size: smaller;
+  font-size: 10px;
+  line-height: 0.9;
+  user-select: none;
+}
+
+footer a {
+  color: rgb(83, 83, 128);
+  text-decoration: none;
+}
+
+#bg-music {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  opacity: 0.5;
+  border-radius: 20px;
+
+  transition: opacity 0.3s ease;
+}
+
+#bg-music:hover {
+  opacity: 1;
 }

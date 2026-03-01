@@ -20,6 +20,42 @@
     <video autoplay muted loop playsinline preload="auto" id="bg">
       <source src="./src/v/vys/m/bg/night-sky.1920x1080.mp4" />
     </video>
+    <audio id="bg-music" loop controls preload="auto">
+      <source
+        src="https://ncsmusic.s3.eu-west-1.amazonaws.com/tracks/000/001/651/cruising-1711414854-uhB6wfB93z.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script>
+      document.addEventListener(
+        'click',
+        function () {
+          document.getElementById('bg-music').play();
+        },
+        { once: true }
+      );
+
+      const music = document.getElementById('bg-music');
+      music.volume = 0.1; // 50% głośności
+    </script>
+    <div id="contact">
+      <h1>Socials & Contacts</h1>
+      <p><strong>Email:</strong> VysTheVysy0@gmail.com</p>
+      <p><strong>Discord:</strong> vysy0</p>
+      <p>
+        <strong>Github:</strong>
+        <a href="https://github.com/VYSY0" target="_blank">Vysy0</a>
+      </p>
+      <p><strong>Youtube:</strong> Vysy0</p>
+      <h1>Looking for<br />HSMP Appeals?</h1>
+      <p>
+        <strong>Appeal Link:</strong>
+        <a href="https://appeal.gg/DSdUpmwxPv" target="_blank"
+          >HSMP Appeals Form</a
+        >
+      </p>
+    </div>
     <div class="center">
       <header id="main-header">
         <img
@@ -39,11 +75,20 @@
     </div>
     <footer>
       <p>
-        This Website and Projects connected to it are made by Vysy0 and are
-        protected by open-source Copyright. If you want to use any of the
-        content on this website, please avoid not crediting somewhere an code
-        author.<br />Copyright © 2026-2027 Vysy0. Copy-Pasting requires Author's
-        Credits..
+        This website and all projects connected to it are created by
+        <strong>Vysy0</strong>
+        and are licensed under the
+        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">
+          Creative Commons Attribution 4.0 International (CC BY 4.0)
+        </a>
+        license.<br /><br />
+
+        You are free to share and adapt the material for any purpose, even
+        commercially, under the condition that appropriate credit is given to
+        the original author (Vysy0), a link to the license is provided, and any
+        changes made are indicated.<br /><br />
+
+        © 2026–2027 Vysy0. Licensed under CC BY 4.0.
       </p>
     </footer>
   </body>
