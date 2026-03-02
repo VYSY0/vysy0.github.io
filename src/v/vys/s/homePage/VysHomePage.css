@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background-color: black;
+  font-family: 'Quantico', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+}
+
+header img {
+  max-width: 100px;
+  border-radius: 1000px;
+  box-shadow: 0 0 20px rgb(255, 255, 255);
+  border: 1px solid white;
+}
