@@ -10,6 +10,8 @@ body {
   font-family: 'Quantico', sans-serif;
   font-weight: 400;
   font-style: normal;
+
+  user-select: none;
 }
 
 #contact {
@@ -28,6 +30,12 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 
   text-shadow: 0 0 10px white;
+
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    opacity 1s ease,
+    filter 1s ease;
 }
 
 #contact h1 {
@@ -46,6 +54,11 @@ body {
     0px -1px 0 white,
     1px 0px 0 white,
     -1px 0px 0 white;
+}
+
+#contact.loaded {
+  opacity: 1;
+  filter: blur(0);
 }
 
 #projects {
@@ -74,17 +87,45 @@ footer a {
   text-decoration: none;
 }
 
-#bg-music {
+#bg-music-control {
   position: fixed;
   top: 10px;
   right: 10px;
+
+  width: 50px;
+  aspect-ratio: 1 / 1;
+
+  display: flex; /* 🔥 to jest klucz */
+  align-items: center; /* pion */
+  justify-content: center; /* poziom */
+
   z-index: 1000;
   opacity: 0.5;
-  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgb(192, 192, 192);
+
+  border-radius: 100%;
 
   transition: opacity 0.3s ease;
 }
+@media (max-width: 740px) {
+  #contact {
+    position: static;
+    margin-bottom: 100px;
+    z-index: auto;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+    padding: 20px;
+    width: auto;
+    max-width: 800px;
 
-#bg-music:hover {
-  opacity: 1;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    text-shadow: 0 0 10px white;
+  }
 }

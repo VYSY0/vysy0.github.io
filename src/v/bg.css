@@ -12,7 +12,7 @@
 
   z-index: -1;
 
-  transition: filter 5s ease;
+  transition: filter 1.5s ease;
 }
 
 #bg.loaded {
