@@ -29,6 +29,40 @@ header {
   left: 0;
 }
 
+#content {
+  padding: 20px;
+  display: flex;
+  margin: auto 200px;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px white;
+  padding: 20px;
+  border-radius: 40px;
+
+  opacity: 0;
+  filter: blur(10px);
+  transition: all 1s ease;
+}
+
+#content a,
+h1,
+p {
+  color: white;
+  text-shadow: 0 0 10px white;
+}
+
+#content h1 {
+  text-align: center;
+  transition: transform 0.5s ease;
+}
+
+#content.loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+
 #logo {
   max-width: 0px;
   border-radius: 1000px;
@@ -65,9 +99,7 @@ header {
   border-radius: 40px;
   z-index: 1000;
 
-  transition:
-    opacity 1s ease,
-    filter 1s ease;
+  transition: all 1s ease;
 }
 
 #main-nav.loaded {
@@ -76,6 +108,8 @@ header {
   position: fixed;
   top: 10px;
   left: 10px;
+
+  width: auto;
 
   opacity: 1;
   filter: blur(0);
@@ -110,13 +144,19 @@ header {
     0 0 20px white;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 1000px) {
   #main-nav {
     position: static;
+    text-align: center;
     z-index: auto;
+    margin: 30px 30px;
+    max-width: 100%;
   }
   #main-nav.loaded {
     position: static;
     z-index: auto;
+  }
+  #content {
+    margin: auto 20px;
   }
 }
