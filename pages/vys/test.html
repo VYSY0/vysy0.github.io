@@ -74,7 +74,7 @@
                 console.log('Trying to load from local path...');
                 const filename = 'an_07+03+2026_19:04.md';
                 const response = await fetch('./a/' + filename);
-                
+
                 if (response.ok) {
                     console.log('Local file loaded successfully');
                     const mdText = await response.text();
@@ -100,7 +100,7 @@
 
                 // Szukaj pliku o nowym formacie
                 const file = files.find(f => f.name.match(/^an_\d{2}\+\d{2}\+\d{4}_\d{2}:\d{2}\.md$/));
-                
+
                 if (file && file.download_url) {
                     const mdResponse = await fetch(file.download_url);
                     const mdText = await mdResponse.text();
@@ -116,7 +116,7 @@
         function displayFile(filename, mdText) {
             console.log('Displaying file:', filename);
             console.log('Markdown text:', mdText);
-            
+
             const htmlContent = marked.parse(mdText);
             console.log('HTML content:', htmlContent);
 
