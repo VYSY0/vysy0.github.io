@@ -34,11 +34,7 @@
 }
 
 header img {
-  border-radius: 1000px;
-  border: 1px white solid;
-  box-shadow:
-    5px 0 20px rgb(116, 148, 177),
-    -5px 0 20px rgb(128, 91, 91);
+  max-width: 400px;
 }
 
 section {

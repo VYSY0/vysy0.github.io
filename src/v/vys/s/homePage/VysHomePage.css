@@ -26,7 +26,6 @@ header {
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  left: 0;
 }
 
 #content {
@@ -38,17 +37,18 @@ header {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 20px white;
-  padding: 20px;
   border-radius: 40px;
 
   opacity: 0;
   filter: blur(10px);
-  transition: all 1s ease;
+  transition:
+    opacity 1s ease,
+    filter 1s ease;
 }
 
 #content a,
-h1,
-p {
+#content h1,
+#content p {
   color: white;
   text-shadow: 0 0 10px white;
 }
@@ -56,9 +56,11 @@ p {
 #content h1 {
   text-align: center;
   font-size: 2.5em;
-  transition: transform 0.5s ease;
 
-  transition: all 1s ease;
+  transition: transform 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #content.loaded {
@@ -67,12 +69,10 @@ p {
 }
 
 #logo {
-  max-width: 0px;
-  border-radius: 1000px;
-  box-shadow: 0 0 20px rgb(255, 255, 255);
+  max-width: 0;
   opacity: 0;
-  border: 1px solid white;
-  transform: rotate(360deg);
+  filter: blur(20px);
+  transform: translateY(-500px);
   transition:
     max-width 1s ease,
     transform 1.5s ease-out,
@@ -83,12 +83,10 @@ p {
 }
 
 #logo.loaded {
-  max-width: 100px;
-  border-radius: 1000px;
+  max-width: 250px;
   opacity: 1;
-  box-shadow: 0 0 20px rgb(255, 255, 255);
-  border: 1px solid white;
-  transform: rotate(0);
+  filter: blur(0);
+  transform: translateY(0);
 }
 
 #main-nav {
@@ -105,26 +103,15 @@ p {
   border-radius: 40px;
   z-index: 1000;
 
+  text-align: center;
+
   transition: all 1s ease;
 }
 
 #main-nav.loaded {
-  color: white;
-
-  position: fixed;
-  top: 10px;
-  left: 10px;
-
-  width: auto;
-
   opacity: 1;
   filter: blur(0);
-
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 20px white;
-  padding: 20px;
-  border-radius: 40px;
-  z-index: 1000;
+  color: white;
 }
 
 #main-nav a {
@@ -133,8 +120,15 @@ p {
   font-size: 18px;
   margin: 0 10px;
   text-shadow: 0 0 10px white;
+  user-select: none;
+  cursor: pointer;
 
   transition: all 0.3s ease;
+}
+
+#main-nav a:active {
+  color: gold;
+  text-shadow: 0 0 20px gold;
 }
 
 #main-nav a:hover {
@@ -152,7 +146,6 @@ p {
 
 footer {
   position: static;
-  bottom: 0;
   width: 100%;
   color: white;
   text-align: center;
@@ -167,6 +160,105 @@ footer a {
   text-decoration: none;
 }
 
+hr {
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid rgba(65, 25, 25, 0.24);
+  margin: 20px 0;
+}
+
+#hint {
+  color: gold;
+  text-shadow: 0 0 10px gold;
+
+  position: relative;
+
+  cursor: pointer;
+  user-select: none;
+  z-index: 5;
+
+  transform: scale(1);
+
+  transition: all 0.3s ease;
+}
+
+#hint:hover {
+  color: white;
+  text-shadow: 0 0 20px gold;
+  cursor: none;
+
+  transform: scale(1.1);
+}
+
+#hint:hover::after {
+  content: attr(data-hint);
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(0, 0, 0, 0.829);
+  box-shadow: 0 0 10px white;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+
+  min-width: 250px;
+  max-width: 300px;
+
+  z-index: 1000;
+
+  transition: transform 0.3s ease;
+}
+
+#hsmp-logo {
+  width: 120px;
+  height: auto;
+  vertical-align: middle;
+  margin-left: 10px;
+  transition: all 0.5s ease;
+}
+
+#hsmp-logo:hover {
+  transform: scale(1.05);
+}
+
+#projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  perspective: 1000px;
+  gap: 20px;
+  width: 100%;
+}
+
+#projects-grid .project-card {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-card {
+  aspect-ratio: 1 / 1;
+  perspective: 1000px;
+}
+
+.project-image {
+  max-width: 100%;
+  max-height: 150px;
+  display: block;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.project-image:hover {
+  transform: scale(1.05) rotateY(20deg);
+}
 @media (max-width: 1000px) {
   #main-nav {
     position: static;
@@ -175,18 +267,37 @@ footer a {
     margin: 30px 30px;
     max-width: 100%;
   }
+
   #main-nav.loaded {
     position: static;
     z-index: auto;
   }
+
+  #main-nav div {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px white;
+
+    transition: background-color 0.3s ease;
+  }
+
+  #main-nav div:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 20px white;
+  }
+
+  #main-nav div:active {
+    background-color: rgba(73, 73, 73, 0.8);
+    box-shadow: 0 0 30px rgb(46, 42, 42);
+  }
+
   #content {
     margin: auto 20px;
   }
-}
 
-hr {
-  width: 100%;
-  border-radius: 10px;
-  border: 2px solid white;
-  margin: 20px 0;
+  #projects-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

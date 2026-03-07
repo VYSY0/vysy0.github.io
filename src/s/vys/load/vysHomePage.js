@@ -10,6 +10,7 @@ window.addEventListener('load', () => {
     if (background) background.classList.add('loaded');
     await wait(1500);
     if (logo) logo.classList.add('loaded');
+    await wait(1000);
     if (mainNav) mainNav.classList.add('loaded');
     await wait(1000);
     if (content) content.classList.add('loaded');
@@ -60,3 +61,31 @@ function onLogoClick() {
 }
 
 logo.addEventListener('click', onLogoClick);
+
+// Navigations
+
+const navHome = document.getElementById('nav-home');
+const navProjects = document.getElementById('nav-projects');
+const navContact = document.getElementById('nav-contact');
+
+async function fadeOutAndNavigate(url) {
+  if (background) background.classList.remove('loaded');
+  await wait(1000);
+  if (logo) logo.classList.remove('loaded');
+  if (mainNav) mainNav.classList.remove('loaded');
+  if (content) content.classList.remove('loaded');
+  await wait(1000);
+  window.open(url, '_self');
+}
+
+navHome.addEventListener('click', async (e) => {
+  await fadeOutAndNavigate('home.html');
+});
+
+navProjects.addEventListener('click', async (e) => {
+  await fadeOutAndNavigate('projects.html');
+});
+
+navContact.addEventListener('click', async (e) => {
+  await fadeOutAndNavigate('contact.html');
+});
