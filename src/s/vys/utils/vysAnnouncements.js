@@ -1,19 +1,15 @@
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
 
-// funkcja wyciągająca datę z nazwy pliku
 function getDateFromFileName(filename) {
-  // Nowy format: an_07-03-2026_19-04.md
   const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
   if (match) {
     const [, day, month, year, hour, min] = match;
     return `${day} ${month} ${year} ${hour}:${min}`;
   }
-  // Fallback dla starego formatu
   const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
   return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
 }
 
-// Funkcja do wyciągnięcia daty do sortowania (YYYYMMDDHHMI)
 function getSortableDate(filename) {
   const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
   if (match) {
@@ -23,7 +19,6 @@ function getSortableDate(filename) {
   return '';
 }
 
-// Wyświetl wszystkie pliki z tablicy
 function displayFilesFromArray(filesArray, container) {
   console.log('Displaying', filesArray.length, 'files');
 
@@ -42,11 +37,9 @@ function displayFilesFromArray(filesArray, container) {
   console.log('All files added to page');
 }
 
-// Funkcja do ładowania plików lokalnie (dla developmentu)
 async function loadLocalFilesForContainer(container, maxFiles) {
   console.log('Loading local files...');
   try {
-    // Lista plików do załadowania (można rozszerzyć)
     const filenames = ['an_07-03-2026_19-04.md', 'an_07-03-2026_19-10.md'];
     let loadedFiles = [];
 
@@ -62,14 +55,12 @@ async function loadLocalFilesForContainer(container, maxFiles) {
       }
     }
 
-    // Sortuj od najnowszego do najstarszego
     loadedFiles.sort((a, b) => {
       const sortA = getSortableDate(a.name);
       const sortB = getSortableDate(b.name);
       return sortB.localeCompare(sortA);
     });
 
-    // Weź maksymalnie N plików
     const selectedFiles = loadedFiles.slice(0, maxFiles);
 
     if (selectedFiles.length > 0) {
@@ -81,12 +72,10 @@ async function loadLocalFilesForContainer(container, maxFiles) {
     }
   } catch (error) {
     console.error('Error loading local files:', error);
-    // Fallback do GitHub API
     loadFromGitHubForContainer(container, maxFiles);
   }
 }
 
-// Funkcja do ładowania z GitHub API
 async function loadFromGitHubForContainer(container, maxFiles) {
   const apiUrl =
     'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
@@ -95,19 +84,16 @@ async function loadFromGitHubForContainer(container, maxFiles) {
     const res = await fetch(apiUrl);
     const files = await res.json();
 
-    // Filtruj pliki o nowym formacie
     const mdFiles = files.filter((f) =>
       f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/)
     );
 
-    // Sortuj od najnowszego do najstarszego
     mdFiles.sort((a, b) => {
       const sortA = getSortableDate(a.name);
       const sortB = getSortableDate(b.name);
       return sortB.localeCompare(sortA);
     });
 
-    // Weź maksymalnie N plików
     const selectedFiles = mdFiles.slice(0, maxFiles);
 
     console.log(
@@ -116,7 +102,6 @@ async function loadFromGitHubForContainer(container, maxFiles) {
     );
 
     if (selectedFiles.length > 0) {
-      // Załaduj zawartość wszystkich plików
       for (const file of selectedFiles) {
         try {
           const mdResponse = await fetch(file.download_url);
@@ -148,7 +133,6 @@ async function loadFromGitHubForContainer(container, maxFiles) {
   }
 }
 
-// GŁÓWNA FUNKCJA - Wyświetl ogłoszenia
 async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
   console.log(
     `showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`
@@ -174,7 +158,6 @@ async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
   }
 }
 
-// Automatyczne ładowanie dla domyślnego kontenera (jeśli istnieje)
 if (document.getElementById('file-container')) {
   console.log('Auto-loading announcements for default container');
   showAnnouncements(5, 'file-container');
