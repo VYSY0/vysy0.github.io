@@ -69,26 +69,33 @@
 
         // Funkcja do ładowania plików
         async function loadFiles() {
-            // Spróbuj najpierw załadować lokalnie
-            try {
-                console.log('Trying to load from local path...');
-                const filename = 'an_07-03-2026_19-04.md';
-                const response = await fetch('./a/' + filename);
+            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            console.log('Is localhost:', isLocalhost);
+            
+            // Spróbuj lokalnie TYLKO na localhost
+            if (isLocalhost) {
+                try {
+                    console.log('Trying to load from local path...');
+                    const filename = 'an_07-03-2026_19-04.md';
+                    const response = await fetch('./a/' + filename);
 
-                if (response.ok) {
-                    console.log('Local file loaded successfully');
-                    const mdText = await response.text();
-                    if (mdText.trim() !== '') {
-                        displayFile(filename, mdText);
-                        return;
+                    if (response.ok) {
+                        console.log('Local file loaded successfully');
+                        const mdText = await response.text();
+                        if (mdText.trim() !== '') {
+                            displayFile(filename, mdText);
+                            return;
+                        } else {
+                            console.warn('Local file is empty, trying GitHub API');
+                        }
                     } else {
-                        console.warn('Local file is empty, trying GitHub API');
+                        console.warn('Local file not found, trying GitHub API');
                     }
-                } else {
-                    console.warn('Local file not found, trying GitHub API');
+                } catch (error) {
+                    console.warn('Error loading local file:', error);
                 }
-            } catch (error) {
-                console.warn('Error loading local file:', error);
+            } else {
+                console.log('Not on localhost, skipping local file load');
             }
 
             // Fallback: ładuj z GitHub API
@@ -106,6 +113,9 @@
                     const mdText = await mdResponse.text();
                     console.log('File loaded from GitHub:', file.name);
                     displayFile(file.name, mdText);
+                } else {
+                    console.error('File not found in GitHub API');
+                    container.innerHTML = '<p>No announcements found</p>';
                 }
             } catch (error) {
                 console.error('Error loading from GitHub:', error);
