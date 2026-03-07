@@ -28,7 +28,7 @@ function displayFilesFromArray(filesArray, container) {
   console.log('Displaying', filesArray.length, 'files');
 
   filesArray.forEach((file) => {
-    const htmlContent = marked(file.content);
+    const htmlContent = marked.parse(file.content);
     const fileDiv = document.createElement('div');
     fileDiv.classList.add('file-item');
     fileDiv.innerHTML = `
@@ -125,7 +125,7 @@ async function loadFromGitHubForContainer(container, maxFiles) {
           const fileDiv = document.createElement('div');
           fileDiv.classList.add('file-item');
 
-          const htmlContent = marked(mdText);
+          const htmlContent = marked.parse(mdText);
 
           fileDiv.innerHTML = `
             <div class="file-name">${file.name}</div>
