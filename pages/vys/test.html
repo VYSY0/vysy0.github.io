@@ -50,12 +50,26 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        // funkcja wyciągająca datę z nazwy pliku
+        function getDateFromFileName(filename) {
+            const match = filename.match(/_(\d{2}\+\d{2}\+\d{4})_(\d{2}:\d{2})/);
+            if (match) {
+                const date = match[1].replace(/\+/g, ' ');
+                const time = match[2];
+                return `${date} ${time}`;
+            }
+            // Fallback dla starego formatu bez godziny
+            const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
+            return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
+        }
+
         // Simple test without modules
         console.log('Simple script loaded');
         const container = document.getElementById('file-container');
         console.log('Container:', container);
 
-        fetch('./a/an_07+03+2026.md')
+        const filename = 'an_07+03+2026_19:04.md';
+        fetch('./a/' + filename)
             .then(response => {
                 console.log('Fetch response:', response);
                 return response.text();
@@ -68,9 +82,9 @@
                 const fileDiv = document.createElement('div');
                 fileDiv.classList.add('file-item');
                 fileDiv.innerHTML = `
-                    <div class="file-name">an_07+03+2026.md</div>
+                    <div class="file-name">${filename}</div>
                     <div class="file-content">${htmlContent}</div>
-                    <div class="file-date">07+03+2026</div>
+                    <div class="file-date">${getDateFromFileName(filename)}</div>
                 `;
                 container.appendChild(fileDiv);
                 console.log('Content added to page');

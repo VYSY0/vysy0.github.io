@@ -5,8 +5,15 @@ console.log('Script loaded, container:', container);
 
 // funkcja wyciągająca datę z nazwy pliku
 function getDateFromFileName(filename) {
-  const match = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
-  return match ? match[1] : 'Unknown date';
+  const match = filename.match(/_(\d{2}\+\d{2}\+\d{4})_(\d{2}:\d{2})/);
+  if (match) {
+    const date = match[1].replace(/\+/g, ' ');
+    const time = match[2];
+    return `${date} ${time}`;
+  }
+  // Fallback dla starego formatu bez godziny
+  const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
+  return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
 }
 
 // Funkcja do ładowania plików lokalnie (dla developmentu)
