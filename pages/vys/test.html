@@ -78,7 +78,7 @@
         // GŁÓWNA FUNKCJA - Wyświetl ogłoszenia
         async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
             console.log(`showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`);
-            
+
             const container = document.getElementById(elementID);
             if (!container) {
                 console.error(`Element with ID "${elementID}" not found!`);
@@ -198,6 +198,7 @@
 
         // Automatyczne ładowanie dla domyślnego kontenera
         showAnnouncements(5, 'file-container');
+    </script>
 </body>
 
 </html>
