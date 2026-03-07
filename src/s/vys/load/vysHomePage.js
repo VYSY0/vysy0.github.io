@@ -23,13 +23,17 @@ async function animateH1(rot, element) {
   const h1 = element || document.getElementById('animationH1');
 
   if (!h1) return;
-  h1.style.fontSize = '2.7em';
+  
+  // Force reflow to ensure transition starts from current state
+  h1.offsetHeight;
+  
+  h1.style.fontSize = '50px';
   h1.style.transform = `rotate(${rot}deg)`;
   await wait(500);
 
   h1.style.transform = `rotate(${-rot}deg)`;
   await wait(500);
-  h1.style.fontSize = '2.5em';
+  h1.style.fontSize = '45px';
   h1.style.transform = `rotate(0deg)`;
 }
 
