@@ -174,5 +174,3 @@ if (document.getElementById('file-container')) {
   console.log('Auto-loading announcements for default container');
   showAnnouncements(5, 'file-container');
 }
-  loadFromGitHub();
-}
