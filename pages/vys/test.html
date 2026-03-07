@@ -48,7 +48,38 @@
     <h1>Announcements</h1>
     <div id="file-container"></div>
 
-    <script type="module" src="../../src/s/vys/utils/vysAnnouncements.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Simple test without modules
+        console.log('Simple script loaded');
+        const container = document.getElementById('file-container');
+        console.log('Container:', container);
+
+        fetch('./a/an_07+03+2026.md')
+            .then(response => {
+                console.log('Fetch response:', response);
+                return response.text();
+            })
+            .then(mdText => {
+                console.log('Markdown text:', mdText);
+                const htmlContent = marked.parse(mdText);
+                console.log('HTML content:', htmlContent);
+
+                const fileDiv = document.createElement('div');
+                fileDiv.classList.add('file-item');
+                fileDiv.innerHTML = `
+                    <div class="file-name">an_07+03+2026.md</div>
+                    <div class="file-content">${htmlContent}</div>
+                    <div class="file-date">07+03+2026</div>
+                `;
+                container.appendChild(fileDiv);
+                console.log('Content added to page');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                container.innerHTML = '<p>Error loading content: ' + error.message + '</p>';
+            });
+    </script>
 </body>
 
 </html>
