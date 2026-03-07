@@ -8,32 +8,74 @@ function getDateFromFileName(filename) {
   return match ? match[1] : 'Unknown date';
 }
 
-// Twój URL do folderu z plikami md
-const apiUrl =
-  'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
+// Funkcja do ładowania plików lokalnie (dla developmentu)
+async function loadLocalFiles() {
+  try {
+    // Lista plików do załadowania (można rozszerzyć)
+    const files = ['an_07+03+2026.md'];
 
-fetch(apiUrl)
-  .then((res) => res.json())
-  .then((files) => {
-    files.slice(0, 5).forEach((file) => {
+    for (const file of files) {
+      const response = await fetch(`./a/${file}`);
+      if (response.ok) {
+        const mdText = await response.text();
+        const fileDiv = document.createElement('div');
+        fileDiv.classList.add('file-item');
+
+        const htmlContent = marked(mdText);
+
+        fileDiv.innerHTML = `
+          <div class="file-name">${file}</div>
+          <div class="file-content">${htmlContent}</div>
+          <div class="file-date">${getDateFromFileName(file)}</div>
+        `;
+        container.appendChild(fileDiv);
+      }
+    }
+  } catch (error) {
+    console.error('Error loading local files:', error);
+    // Fallback do GitHub API
+    loadFromGitHub();
+  }
+}
+
+// Funkcja do ładowania z GitHub API
+async function loadFromGitHub() {
+  const apiUrl = 'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
+
+  try {
+    const res = await fetch(apiUrl);
+    const files = await res.json();
+
+    files.slice(0, 5).forEach(async (file) => {
       if (file.name.endsWith('.md')) {
-        fetch(file.download_url)
-          .then((res) => res.text())
-          .then((mdText) => {
-            const fileDiv = document.createElement('div');
-            fileDiv.classList.add('file-item');
+        try {
+          const res = await fetch(file.download_url);
+          const mdText = await res.text();
 
-            // tutaj zamieniamy markdown na HTML
-            const htmlContent = marked(mdText);
+          const fileDiv = document.createElement('div');
+          fileDiv.classList.add('file-item');
 
-            fileDiv.innerHTML = `
-              <div class="file-name">${file.name}</div>
-              <div class="file-content">${htmlContent}</div>
-              <div class="file-date">${getDateFromFileName(file.name)}</div>
-            `;
-            container.appendChild(fileDiv);
-          });
+          const htmlContent = marked(mdText);
+
+          fileDiv.innerHTML = `
+            <div class="file-name">${file.name}</div>
+            <div class="file-content">${htmlContent}</div>
+            <div class="file-date">${getDateFromFileName(file.name)}</div>
+          `;
+          container.appendChild(fileDiv);
+        } catch (error) {
+          console.error('Error fetching file:', file.name, error);
+        }
       }
     });
-  })
-  .catch((err) => console.error('Error fetching files:', err));
+  } catch (error) {
+    console.error('Error fetching files from GitHub:', error);
+  }
+}
+
+// Sprawdź czy jesteśmy na localhost
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  loadLocalFiles();
+} else {
+  loadFromGitHub();
+}
