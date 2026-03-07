@@ -50,7 +50,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        // funkcja wyciągająca datę z nazwy pliku
+        // funkcja wyciągająca datę z nazwy pliku do wyświetlenia
         function getDateFromFileName(filename) {
             // Nowy format: an_07-03-2026_19-04.md
             const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
@@ -63,6 +63,16 @@
             return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
         }
 
+        // Funkcja do wyciągnięcia daty do sortowania (YYYYMMDDHHMI)
+        function getSortableDate(filename) {
+            const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
+            if (match) {
+                const [, day, month, year, hour, min] = match;
+                return `${year}${month}${day}${hour}${min}`;
+            }
+            return '';
+        }
+
         console.log('Script loaded');
         const container = document.getElementById('file-container');
         console.log('Container:', container);
@@ -72,27 +82,34 @@
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             console.log('Is localhost:', isLocalhost);
 
+            let filesToDisplay = [];
+
             // Spróbuj lokalnie TYLKO na localhost
             if (isLocalhost) {
                 try {
                     console.log('Trying to load from local path...');
-                    const filename = 'an_07-03-2026_19-04.md';
-                    const response = await fetch('./a/' + filename);
-
-                    if (response.ok) {
-                        console.log('Local file loaded successfully');
-                        const mdText = await response.text();
-                        if (mdText.trim() !== '') {
-                            displayFile(filename, mdText);
-                            return;
-                        } else {
-                            console.warn('Local file is empty, trying GitHub API');
+                    // Zamiast fetch, na localhost spróbuj załadować znane pliki
+                    const filenames = ['an_07-03-2026_19-04.md', 'an_07-03-2026_19-10.md'];
+                    
+                    for (const filename of filenames) {
+                        const response = await fetch('./a/' + filename);
+                        if (response.ok) {
+                            const mdText = await response.text();
+                            if (mdText.trim() !== '') {
+                                filesToDisplay.push({ name: filename, content: mdText });
+                            }
                         }
+                    }
+
+                    if (filesToDisplay.length > 0) {
+                        console.log('Local files loaded successfully:', filesToDisplay.length);
+                        displayFilesFromArray(filesToDisplay);
+                        return;
                     } else {
-                        console.warn('Local file not found, trying GitHub API');
+                        console.warn('No local files found, trying GitHub API');
                     }
                 } catch (error) {
-                    console.warn('Error loading local file:', error);
+                    console.warn('Error loading local files:', error);
                 }
             } else {
                 console.log('Not on localhost, skipping local file load');
@@ -105,16 +122,39 @@
                 const response = await fetch(apiUrl);
                 const files = await response.json();
 
-                // Szukaj pliku o nowym formacie
-                const file = files.find(f => f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/));
+                // Filtruj pliki o nowym formacie
+                const mdFiles = files.filter(f => f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/));
+                
+                // Sortuj od najnowszego do najstarszego
+                mdFiles.sort((a, b) => {
+                    const sortA = getSortableDate(a.name);
+                    const sortB = getSortableDate(b.name);
+                    return sortB.localeCompare(sortA);
+                });
 
-                if (file && file.download_url) {
-                    const mdResponse = await fetch(file.download_url);
-                    const mdText = await mdResponse.text();
-                    console.log('File loaded from GitHub:', file.name);
-                    displayFile(file.name, mdText);
+                // Weź maksymalnie 5 plików
+                const selectedFiles = mdFiles.slice(0, 5);
+
+                console.log('Found files:', selectedFiles.map(f => f.name));
+
+                if (selectedFiles.length > 0) {
+                    // Załaduj zawartość wszystkich plików
+                    for (const file of selectedFiles) {
+                        try {
+                            const mdResponse = await fetch(file.download_url);
+                            const mdText = await mdResponse.text();
+                            filesToDisplay.push({ name: file.name, content: mdText });
+                        } catch (error) {
+                            console.error('Error fetching file content:', file.name, error);
+                        }
+                    }
+
+                    if (filesToDisplay.length > 0) {
+                        console.log('Files loaded from GitHub:', filesToDisplay.length);
+                        displayFilesFromArray(filesToDisplay);
+                    }
                 } else {
-                    console.error('File not found in GitHub API');
+                    console.error('No files found in GitHub API');
                     container.innerHTML = '<p>No announcements found</p>';
                 }
             } catch (error) {
@@ -123,22 +163,22 @@
             }
         }
 
-        function displayFile(filename, mdText) {
-            console.log('Displaying file:', filename);
-            console.log('Markdown text:', mdText);
-
-            const htmlContent = marked.parse(mdText);
-            console.log('HTML content:', htmlContent);
-
-            const fileDiv = document.createElement('div');
-            fileDiv.classList.add('file-item');
-            fileDiv.innerHTML = `
-                <div class="file-name">${filename}</div>
-                <div class="file-content">${htmlContent}</div>
-                <div class="file-date">${getDateFromFileName(filename)}</div>
-            `;
-            container.appendChild(fileDiv);
-            console.log('Content added to page');
+        function displayFilesFromArray(filesArray) {
+            console.log('Displaying', filesArray.length, 'files');
+            
+            filesArray.forEach(file => {
+                const htmlContent = marked.parse(file.content);
+                const fileDiv = document.createElement('div');
+                fileDiv.classList.add('file-item');
+                fileDiv.innerHTML = `
+                    <div class="file-name">${file.name}</div>
+                    <div class="file-content">${htmlContent}</div>
+                    <div class="file-date">${getDateFromFileName(file.name)}</div>
+                `;
+                container.appendChild(fileDiv);
+            });
+            
+            console.log('All files added to page');
         }
 
         loadFiles();
