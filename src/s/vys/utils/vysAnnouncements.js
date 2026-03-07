@@ -63,8 +63,8 @@ async function loadLocalFiles() {
 // Wyświetl wszystkie pliki z tablicy
 function displayFilesFromArray(filesArray) {
   console.log('Displaying', filesArray.length, 'files');
-  
-  filesArray.forEach(file => {
+
+  filesArray.forEach((file) => {
     const htmlContent = marked(file.content);
     const fileDiv = document.createElement('div');
     fileDiv.classList.add('file-item');
@@ -75,7 +75,7 @@ function displayFilesFromArray(filesArray) {
     `;
     container.appendChild(fileDiv);
   });
-  
+
   console.log('All files added to page');
 }
 
@@ -89,8 +89,10 @@ async function loadFromGitHub() {
     const files = await res.json();
 
     // Filtruj pliki o nowym formacie
-    const mdFiles = files.filter(f => f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/));
-    
+    const mdFiles = files.filter((f) =>
+      f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/)
+    );
+
     // Sortuj od najnowszego do najstarszego
     mdFiles.sort((a, b) => {
       const sortA = getSortableDate(a.name);
@@ -101,7 +103,10 @@ async function loadFromGitHub() {
     // Weź maksymalnie 5 plików
     const selectedFiles = mdFiles.slice(0, 5);
 
-    console.log('Found files:', selectedFiles.map(f => f.name));
+    console.log(
+      'Found files:',
+      selectedFiles.map((f) => f.name)
+    );
 
     if (selectedFiles.length > 0) {
       // Załaduj zawartość wszystkich plików

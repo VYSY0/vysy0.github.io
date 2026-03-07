@@ -90,7 +90,7 @@
                     console.log('Trying to load from local path...');
                     // Zamiast fetch, na localhost spróbuj załadować znane pliki
                     const filenames = ['an_07-03-2026_19-04.md', 'an_07-03-2026_19-10.md'];
-                    
+
                     for (const filename of filenames) {
                         const response = await fetch('./a/' + filename);
                         if (response.ok) {
@@ -124,7 +124,7 @@
 
                 // Filtruj pliki o nowym formacie
                 const mdFiles = files.filter(f => f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/));
-                
+
                 // Sortuj od najnowszego do najstarszego
                 mdFiles.sort((a, b) => {
                     const sortA = getSortableDate(a.name);
@@ -165,7 +165,7 @@
 
         function displayFilesFromArray(filesArray) {
             console.log('Displaying', filesArray.length, 'files');
-            
+
             filesArray.forEach(file => {
                 const htmlContent = marked.parse(file.content);
                 const fileDiv = document.createElement('div');
@@ -177,7 +177,7 @@
                 `;
                 container.appendChild(fileDiv);
             });
-            
+
             console.log('All files added to page');
         }
 
