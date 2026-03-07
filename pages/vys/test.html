@@ -74,11 +74,17 @@
         }
 
         console.log('Script loaded');
-        const container = document.getElementById('file-container');
-        console.log('Container:', container);
 
-        // Funkcja do ładowania plików
-        async function loadFiles() {
+        // GŁÓWNA FUNKCJA - Wyświetl ogłoszenia
+        async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
+            console.log(`showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`);
+            
+            const container = document.getElementById(elementID);
+            if (!container) {
+                console.error(`Element with ID "${elementID}" not found!`);
+                return;
+            }
+
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             console.log('Is localhost:', isLocalhost);
 
@@ -88,7 +94,6 @@
             if (isLocalhost) {
                 try {
                     console.log('Trying to load from local path...');
-                    // Zamiast fetch, na localhost spróbuj załadować znane pliki
                     const filenames = ['an_07-03-2026_19-04.md', 'an_07-03-2026_19-10.md'];
 
                     for (const filename of filenames) {
@@ -101,9 +106,19 @@
                         }
                     }
 
-                    if (filesToDisplay.length > 0) {
-                        console.log('Local files loaded successfully:', filesToDisplay.length);
-                        displayFilesFromArray(filesToDisplay);
+                    // Sortuj od najnowszego do najstarszego
+                    filesToDisplay.sort((a, b) => {
+                        const sortA = getSortableDate(a.name);
+                        const sortB = getSortableDate(b.name);
+                        return sortB.localeCompare(sortA);
+                    });
+
+                    // Weź maksymalnie N plików
+                    const selectedFiles = filesToDisplay.slice(0, maxFiles);
+
+                    if (selectedFiles.length > 0) {
+                        console.log('Local files loaded successfully:', selectedFiles.length);
+                        displayFilesFromArray(selectedFiles, container);
                         return;
                     } else {
                         console.warn('No local files found, trying GitHub API');
@@ -132,8 +147,8 @@
                     return sortB.localeCompare(sortA);
                 });
 
-                // Weź maksymalnie 5 plików
-                const selectedFiles = mdFiles.slice(0, 5);
+                // Weź maksymalnie N plików
+                const selectedFiles = mdFiles.slice(0, maxFiles);
 
                 console.log('Found files:', selectedFiles.map(f => f.name));
 
@@ -151,7 +166,7 @@
 
                     if (filesToDisplay.length > 0) {
                         console.log('Files loaded from GitHub:', filesToDisplay.length);
-                        displayFilesFromArray(filesToDisplay);
+                        displayFilesFromArray(filesToDisplay, container);
                     }
                 } else {
                     console.error('No files found in GitHub API');
@@ -163,7 +178,7 @@
             }
         }
 
-        function displayFilesFromArray(filesArray) {
+        function displayFilesFromArray(filesArray, container) {
             console.log('Displaying', filesArray.length, 'files');
 
             filesArray.forEach(file => {
@@ -181,8 +196,8 @@
             console.log('All files added to page');
         }
 
-        loadFiles();
-    </script>
+        // Automatyczne ładowanie dla domyślnego kontenera
+        showAnnouncements(5, 'file-container');
 </body>
 
 </html>

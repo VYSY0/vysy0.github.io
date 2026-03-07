@@ -1,8 +1,5 @@
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
 
-const container = document.getElementById('file-container');
-console.log('Script loaded, container:', container);
-
 // funkcja wyciągająca datę z nazwy pliku
 function getDateFromFileName(filename) {
   // Nowy format: an_07-03-2026_19-04.md
@@ -26,8 +23,27 @@ function getSortableDate(filename) {
   return '';
 }
 
+// Wyświetl wszystkie pliki z tablicy
+function displayFilesFromArray(filesArray, container) {
+  console.log('Displaying', filesArray.length, 'files');
+
+  filesArray.forEach((file) => {
+    const htmlContent = marked(file.content);
+    const fileDiv = document.createElement('div');
+    fileDiv.classList.add('file-item');
+    fileDiv.innerHTML = `
+      <div class="file-name">${file.name}</div>
+      <div class="file-content">${htmlContent}</div>
+      <div class="file-date">${getDateFromFileName(file.name)}</div>
+    `;
+    container.appendChild(fileDiv);
+  });
+
+  console.log('All files added to page');
+}
+
 // Funkcja do ładowania plików lokalnie (dla developmentu)
-async function loadLocalFiles() {
+async function loadLocalFilesForContainer(container, maxFiles) {
   console.log('Loading local files...');
   try {
     // Lista plików do załadowania (można rozszerzyć)
@@ -46,41 +62,32 @@ async function loadLocalFiles() {
       }
     }
 
-    if (loadedFiles.length > 0) {
-      console.log('Local files loaded:', loadedFiles.length);
-      displayFilesFromArray(loadedFiles);
+    // Sortuj od najnowszego do najstarszego
+    loadedFiles.sort((a, b) => {
+      const sortA = getSortableDate(a.name);
+      const sortB = getSortableDate(b.name);
+      return sortB.localeCompare(sortA);
+    });
+
+    // Weź maksymalnie N plików
+    const selectedFiles = loadedFiles.slice(0, maxFiles);
+
+    if (selectedFiles.length > 0) {
+      console.log('Local files loaded:', selectedFiles.length);
+      displayFilesFromArray(selectedFiles, container);
     } else {
       console.warn('No local files found, trying GitHub API');
-      loadFromGitHub();
+      loadFromGitHubForContainer(container, maxFiles);
     }
   } catch (error) {
     console.error('Error loading local files:', error);
     // Fallback do GitHub API
-    loadFromGitHub();
+    loadFromGitHubForContainer(container, maxFiles);
   }
 }
 
-// Wyświetl wszystkie pliki z tablicy
-function displayFilesFromArray(filesArray) {
-  console.log('Displaying', filesArray.length, 'files');
-
-  filesArray.forEach((file) => {
-    const htmlContent = marked(file.content);
-    const fileDiv = document.createElement('div');
-    fileDiv.classList.add('file-item');
-    fileDiv.innerHTML = `
-      <div class="file-name">${file.name}</div>
-      <div class="file-content">${htmlContent}</div>
-      <div class="file-date">${getDateFromFileName(file.name)}</div>
-    `;
-    container.appendChild(fileDiv);
-  });
-
-  console.log('All files added to page');
-}
-
 // Funkcja do ładowania z GitHub API
-async function loadFromGitHub() {
+async function loadFromGitHubForContainer(container, maxFiles) {
   const apiUrl =
     'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
 
@@ -100,8 +107,8 @@ async function loadFromGitHub() {
       return sortB.localeCompare(sortA);
     });
 
-    // Weź maksymalnie 5 plików
-    const selectedFiles = mdFiles.slice(0, 5);
+    // Weź maksymalnie N plików
+    const selectedFiles = mdFiles.slice(0, maxFiles);
 
     console.log(
       'Found files:',
@@ -136,17 +143,36 @@ async function loadFromGitHub() {
     }
   } catch (error) {
     console.error('Error fetching files from GitHub:', error);
+    container.innerHTML = '<p>Error loading announcements: ' + error.message + '</p>';
   }
 }
 
-// Sprawdź czy jesteśmy na localhost
-if (
-  window.location.hostname === 'localhost' ||
-  window.location.hostname === '127.0.0.1'
-) {
-  console.log('Running on localhost, loading local files');
-  loadLocalFiles();
-} else {
-  console.log('Running on production, loading from GitHub');
+// GŁÓWNA FUNKCJA - Wyświetl ogłoszenia
+async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
+  console.log(`showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`);
+  
+  const container = document.getElementById(elementID);
+  if (!container) {
+    console.error(`Element with ID "${elementID}" not found!`);
+    return;
+  }
+
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  console.log('Is localhost:', isLocalhost);
+
+  if (isLocalhost) {
+    console.log('Running on localhost, loading local files');
+    await loadLocalFilesForContainer(container, maxFiles);
+  } else {
+    console.log('Running on production, loading from GitHub');
+    await loadFromGitHubForContainer(container, maxFiles);
+  }
+}
+
+// Automatyczne ładowanie dla domyślnego kontenera (jeśli istnieje)
+if (document.getElementById('file-container')) {
+  console.log('Auto-loading announcements for default container');
+  showAnnouncements(5, 'file-container');
+}
   loadFromGitHub();
 }
