@@ -7,7 +7,7 @@ console.log('Script loaded, container:', container);
 function getDateFromFileName(filename) {
   const match = filename.match(/_(\d{2}\+\d{2}\+\d{4})_(\d{2}:\d{2})/);
   if (match) {
-    const date = match[1].replace(/\+/g, ' ');
+    const date = match[1].replace(/\+/g, '/');
     const time = match[2];
     return `${date} ${time}`;
   }
