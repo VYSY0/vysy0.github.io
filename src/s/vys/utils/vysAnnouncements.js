@@ -5,13 +5,13 @@ console.log('Script loaded, container:', container);
 
 // funkcja wyciągająca datę z nazwy pliku
 function getDateFromFileName(filename) {
-  const match = filename.match(/_(\d{2}\+\d{2}\+\d{4})_(\d{2}:\d{2})/);
+  // Nowy format: an_07-03-2026_19-04.md
+  const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
   if (match) {
-    const date = match[1].replace(/\+/g, '/');
-    const time = match[2];
-    return `${date} ${time}`;
+    const [, day, month, year, hour, min] = match;
+    return `${day} ${month} ${year} ${hour}:${min}`;
   }
-  // Fallback dla starego formatu bez godziny
+  // Fallback dla starego formatu
   const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
   return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
 }
@@ -21,7 +21,7 @@ async function loadLocalFiles() {
   console.log('Loading local files...');
   try {
     // Lista plików do załadowania (można rozszerzyć)
-    const files = ['an_07+03+2026_19:04.md'];
+    const files = ['an_07-03-2026_19-04.md'];
 
     for (const file of files) {
       console.log(`Fetching file: ./a/${file}`);

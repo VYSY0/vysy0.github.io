@@ -52,13 +52,13 @@
     <script>
         // funkcja wyciągająca datę z nazwy pliku
         function getDateFromFileName(filename) {
-            const match = filename.match(/_(\d{2}\+\d{2}\+\d{4})_(\d{2}:\d{2})/);
+            // Nowy format: an_07-03-2026_19-04.md
+            const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
             if (match) {
-                const date = match[1].replace(/\+/g, ' ');
-                const time = match[2];
-                return `${date} ${time}`;
+                const [, day, month, year, hour, min] = match;
+                return `${day} ${month} ${year} ${hour}:${min}`;
             }
-            // Fallback dla starego formatu bez godziny
+            // Fallback dla starego formatu
             const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
             return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
         }
@@ -72,7 +72,7 @@
             // Spróbuj najpierw załadować lokalnie
             try {
                 console.log('Trying to load from local path...');
-                const filename = 'an_07+03+2026_19:04.md';
+                const filename = 'an_07-03-2026_19-04.md';
                 const response = await fetch('./a/' + filename);
 
                 if (response.ok) {
@@ -99,7 +99,7 @@
                 const files = await response.json();
 
                 // Szukaj pliku o nowym formacie
-                const file = files.find(f => f.name.match(/^an_\d{2}\+\d{2}\+\d{4}_\d{2}:\d{2}\.md$/));
+                const file = files.find(f => f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/));
 
                 if (file && file.download_url) {
                     const mdResponse = await fetch(file.download_url);
