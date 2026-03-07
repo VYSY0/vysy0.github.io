@@ -143,21 +143,26 @@ async function loadFromGitHubForContainer(container, maxFiles) {
     }
   } catch (error) {
     console.error('Error fetching files from GitHub:', error);
-    container.innerHTML = '<p>Error loading announcements: ' + error.message + '</p>';
+    container.innerHTML =
+      '<p>Error loading announcements: ' + error.message + '</p>';
   }
 }
 
 // GŁÓWNA FUNKCJA - Wyświetl ogłoszenia
 async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
-  console.log(`showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`);
-  
+  console.log(
+    `showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`
+  );
+
   const container = document.getElementById(elementID);
   if (!container) {
     console.error(`Element with ID "${elementID}" not found!`);
     return;
   }
 
-  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isLocalhost =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1';
   console.log('Is localhost:', isLocalhost);
 
   if (isLocalhost) {
