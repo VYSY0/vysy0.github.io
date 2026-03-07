@@ -1,4 +1,7 @@
-import { wait } from '../../wait.js';
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 const vysWebsite = document.getElementById('vysWeb');
 const hsmpWebsite = document.getElementById('hsmpWeb');
 const background = document.getElementById('bg');

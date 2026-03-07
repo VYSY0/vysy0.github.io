@@ -11,14 +11,15 @@ window.addEventListener('load', () => {
     await wait(1500);
     if (logo) logo.classList.add('loaded');
     if (mainNav) mainNav.classList.add('loaded');
+    await wait(1000);
     if (content) content.classList.add('loaded');
     await wait(1000);
-    animateH1(10);
+    animateH1(10, document.querySelectorAll('#animationH1')[0]);
   });
 });
 
-async function animateH1(rot) {
-  const h1 = document.querySelector('#welcomeMSG h1');
+async function animateH1(rot, element) {
+  const h1 = element || document.getElementById('animationH1');
 
   if (!h1) return;
 
@@ -42,8 +43,20 @@ const observer = new IntersectionObserver(
 
 function onVisible(entry) {
   if (entry.isIntersecting) {
-    animateH1(10);
+    animateH1(5, entry.target);
   }
 }
 
-observer.observe(document.querySelector('#welcomeMSG h1'));
+document.querySelectorAll('h1#animationH1').forEach((h1) => {
+  observer.observe(h1);
+});
+
+function onLogoClick() {
+  logo.style.transition = 'transform 0.3s ease-in-out';
+  logo.style.transform = 'translateY(-20px) rotate(0deg)';
+  setTimeout(() => {
+    logo.style.transform = 'translateY(0px) rotate(360deg)';
+  }, 300);
+}
+
+logo.addEventListener('click', onLogoClick);

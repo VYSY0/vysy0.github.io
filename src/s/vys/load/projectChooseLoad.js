@@ -1,4 +1,6 @@
-import { wait } from '../../wait.js';
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const background = document.getElementById('bg');
 const header = document.getElementById('main-header');

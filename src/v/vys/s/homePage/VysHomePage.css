@@ -69,8 +69,10 @@ p {
   box-shadow: 0 0 20px rgb(255, 255, 255);
   opacity: 0;
   border: 1px solid white;
+  transform: rotate(360deg);
   transition:
     max-width 1s ease,
+    transform 1.5s ease-out,
     border-radius 1s ease,
     box-shadow 1s ease,
     opacity 1s ease,
@@ -83,6 +85,7 @@ p {
   opacity: 1;
   box-shadow: 0 0 20px rgb(255, 255, 255);
   border: 1px solid white;
+  transform: rotate(0);
 }
 
 #main-nav {
@@ -144,6 +147,23 @@ p {
     0 0 20px white;
 }
 
+footer {
+  position: static;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 10px;
+  line-height: 0.9;
+  user-select: none;
+}
+
+footer a {
+  color: rgb(83, 83, 128);
+  text-decoration: none;
+}
+
 @media (max-width: 1000px) {
   #main-nav {
     position: static;
@@ -159,4 +179,11 @@ p {
   #content {
     margin: auto 20px;
   }
+}
+
+hr {
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid white;
+  margin: 20px 0;
 }
