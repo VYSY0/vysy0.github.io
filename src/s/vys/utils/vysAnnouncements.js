@@ -4,7 +4,7 @@ function getDateFromFileName(filename) {
   const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
   if (match) {
     const [, day, month, year, hour, min] = match;
-    return `${day} ${month} ${year} ${hour}:${min}`;
+    return `${day}/${month}/${year} ${hour}:${min} UTC +1`;
   }
   const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
   return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
