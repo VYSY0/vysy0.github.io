@@ -291,6 +291,17 @@ body.image-overlay-open {
     0 0 10px white;
 }
 #hsmp-announcements a {
+  color: rgb(127, 127, 233);
+  text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
+    0 0 10px rgb(127, 127, 233);
 }
 
 #hsmp-announcements img {
