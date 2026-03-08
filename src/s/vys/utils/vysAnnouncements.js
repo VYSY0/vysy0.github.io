@@ -7,7 +7,7 @@ function getDateFromFileName(filename) {
     return `${day}/${month}/${year} ${hour}:${min} UTC +1`;
   }
   const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
-  return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
+  return oldMatch ? oldMatch[1].replace(/\+/g, '/') : 'Unknown date';
 }
 
 function getSortableDate(filename) {
