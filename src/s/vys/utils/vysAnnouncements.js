@@ -2,30 +2,44 @@ import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
 
 const GITHUB_API_URL =
   'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/a';
-const LOCAL_ANNOUNCEMENTS_PATH = '/a';
-const ANNOUNCEMENT_FILE_PATTERN = /^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/;
+const LOCAL_ANNOUNCEMENTS_URL = new URL('../../../../a/', import.meta.url);
+const ANNOUNCEMENT_FILE_PATTERN =
+  /^an_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})\.md$/;
 
 let localFileIndexPromise;
 let githubFileIndexPromise;
 const contentCache = new Map();
 
+function parseAnnouncementFileName(filename) {
+  const match = filename.match(ANNOUNCEMENT_FILE_PATTERN);
+  if (!match) {
+    return null;
+  }
+
+  const [, day, month, year, hour, min] = match;
+  return {
+    day,
+    month,
+    year,
+    hour,
+    min,
+    sortKey: `${year}${month}${day}${hour}${min}`,
+  };
+}
+
 function getDateFromFileName(filename) {
-  const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
-  if (match) {
-    const [, day, month, year, hour, min] = match;
+  const parsedDate = parseAnnouncementFileName(filename);
+  if (parsedDate) {
+    const { day, month, year, hour, min } = parsedDate;
     return `${day}/${month}/${year} ${hour}:${min} UTC +1`;
   }
+
   const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
   return oldMatch ? oldMatch[1].replace(/\+/g, '/') : 'Unknown date';
 }
 
 function getSortableDate(filename) {
-  const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
-  if (match) {
-    const [, day, month, year, hour, min] = match;
-    return `${year}${month}${day}${hour}${min}`;
-  }
-  return '';
+  return parseAnnouncementFileName(filename)?.sortKey || '';
 }
 
 function sortFilesByDate(files) {
@@ -56,7 +70,39 @@ function displayFilesFromArray(filesArray, container) {
 }
 
 function buildLocalFileUrl(filename) {
-  return `${LOCAL_ANNOUNCEMENTS_PATH}/${filename}`;
+  return new URL(filename, LOCAL_ANNOUNCEMENTS_URL).toString();
+}
+
+function buildLocalDirectoryUrl() {
+  return LOCAL_ANNOUNCEMENTS_URL.toString();
+}
+
+function deduplicateFilesByName(files) {
+  return files.filter(
+    (file, index, array) =>
+      array.findIndex((item) => item.name === file.name) === index
+  );
+}
+
+function shouldPreferLocalAnnouncements() {
+  const { hostname, protocol } = window.location;
+  const isPrivateIpv4 =
+    /^10\./.test(hostname) ||
+    /^127\./.test(hostname) ||
+    /^192\.168\./.test(hostname) ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
+
+  if (protocol === 'file:') {
+    return true;
+  }
+
+  return (
+    hostname === 'localhost' ||
+    hostname === '0.0.0.0' ||
+    hostname === '[::1]' ||
+    isPrivateIpv4 ||
+    hostname.endsWith('.local')
+  );
 }
 
 async function fetchFileContent(url) {
@@ -83,7 +129,7 @@ async function fetchFileContent(url) {
 async function getLocalFileIndex() {
   if (!localFileIndexPromise) {
     localFileIndexPromise = (async () => {
-      const response = await fetch(`${LOCAL_ANNOUNCEMENTS_PATH}/`);
+      const response = await fetch(buildLocalDirectoryUrl());
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
@@ -97,12 +143,7 @@ async function getLocalFileIndex() {
         .filter((name) => ANNOUNCEMENT_FILE_PATTERN.test(name))
         .map((name) => ({ name }));
 
-      return sortFilesByDate(
-        files.filter(
-          (file, index, array) =>
-            array.findIndex((item) => item.name === file.name) === index
-        )
-      );
+      return sortFilesByDate(deduplicateFilesByName(files));
     })().catch((error) => {
       localFileIndexPromise = null;
       throw error;
@@ -143,30 +184,32 @@ async function getGitHubFileIndex() {
 }
 
 async function loadFiles(fileIndex, maxFiles, getUrl) {
-  const selectedFiles = fileIndex.slice(0, maxFiles);
-
   console.log(
     'Found files:',
-    selectedFiles.map((file) => file.name)
+    fileIndex.map((file) => file.name)
   );
 
-  const loadedFiles = await Promise.all(
-    selectedFiles.map(async (file) => {
-      try {
-        const mdText = await fetchFileContent(getUrl(file));
-        if (mdText.trim() === '') {
-          return null;
-        }
+  const loadedFiles = [];
 
-        return { name: file.name, content: mdText };
-      } catch (error) {
-        console.error('Error fetching file:', file.name, error);
-        return null;
+  for (const file of fileIndex) {
+    if (loadedFiles.length >= maxFiles) {
+      break;
+    }
+
+    try {
+      const mdText = await fetchFileContent(getUrl(file));
+      if (mdText.trim() === '') {
+        console.warn('Skipping empty announcement file:', file.name);
+        continue;
       }
-    })
-  );
 
-  return loadedFiles.filter(Boolean);
+      loadedFiles.push({ name: file.name, content: mdText });
+    } catch (error) {
+      console.error('Error fetching file:', file.name, error);
+    }
+  }
+
+  return loadedFiles;
 }
 
 async function loadAnnouncements(maxFiles, preferLocal) {
@@ -214,19 +257,17 @@ export async function showAnnouncements(
     return;
   }
 
-  const isLocalhost =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1';
-  console.log('Is localhost:', isLocalhost);
+  const preferLocalAnnouncements = shouldPreferLocalAnnouncements();
+  console.log('Prefer local announcements:', preferLocalAnnouncements);
 
-  if (isLocalhost) {
-    console.log('Running on localhost');
+  if (preferLocalAnnouncements) {
+    console.log('Trying local announcements first');
   } else {
-    console.log('Running on production');
+    console.log('Loading announcements from GitHub first');
   }
 
   try {
-    const files = await loadAnnouncements(maxFiles, isLocalhost);
+    const files = await loadAnnouncements(maxFiles, preferLocalAnnouncements);
 
     if (files.length > 0) {
       displayFilesFromArray(files, container);

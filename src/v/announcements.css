@@ -1,3 +1,63 @@
+.mention {
+  color: gold;
+}
+
+.image-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.image-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.image-grid.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.image-grid img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+
+.enlargedImage {
+  opacity: 0.85;
+}
+
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, 0.82);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+  z-index: 1000;
+}
+
+.image-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.image-overlay-content {
+  width: auto;
+  max-width: min(92vw, 1400px);
+  max-height: 90vh;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.55);
+  cursor: zoom-out;
+}
+
+body.image-overlay-open {
+  overflow: hidden;
+}
 #hsmp-announcements-preview {
   background-color: rgba(39, 23, 43, 0.6);
   border-radius: 20px;
@@ -47,6 +107,45 @@
   background-color: rgba(188, 143, 143, 0.671);
 
   border-radius: 5px;
+}
+
+#hsmp-announcements h1 {
+  text-align: center;
+  color: rgb(220, 144, 241);
+  text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
+    0 0 10px rgb(214, 196, 235);
+
+  font-size: 4em;
+  text-wrap: wrap;
+}
+
+#hsmp-announcements h2 {
+  color: rgb(193, 125, 212);
+  text-align: center;
+  text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
+    0 0 10px rgb(214, 196, 235);
+
+  font-size: 3.5em;
+}
+
+#hsmp-announcements h3 {
+  color: rgb(176, 100, 197);
 
   text-shadow:
     2px 2px 0 black,
@@ -58,23 +157,6 @@
     0 2px 0 black,
     0 -2px 0 black,
     0 0 10px rgb(214, 196, 235);
-}
-
-#hsmp-announcements h1 {
-  text-align: center;
-  color: rgb(220, 144, 241);
-  font-size: 4em;
-  text-wrap: wrap;
-}
-
-#hsmp-announcements h2 {
-  color: rgb(193, 125, 212);
-  text-align: center;
-  font-size: 3.5em;
-}
-
-#hsmp-announcements h3 {
-  color: rgb(176, 100, 197);
 
   text-align: center;
   font-size: 3em;
@@ -83,6 +165,17 @@
 #hsmp-announcements h4 {
   color: rgb(194, 92, 223);
 
+  text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
+    0 0 10px rgb(214, 196, 235);
+
   text-align: center;
   font-size: 2.5em;
 }
@@ -90,12 +183,34 @@
 #hsmp-announcements h5 {
   color: rgb(118, 45, 138);
 
+  text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
+    0 0 10px rgb(214, 196, 235);
+
   text-align: center;
   font-size: 2em;
 }
 
 #hsmp-announcements h6 {
   color: rgb(159, 15, 199);
+
+  text-shadow:
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
+    0 0 10px rgb(214, 196, 235);
 
   text-align: center;
   font-size: 1.5em;
@@ -108,7 +223,86 @@
     -2px 2px 0 black,
     2px -2px 0 black,
     -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
     0 0 10px rgb(214, 196, 235);
 
   font-size: 1.5em;
+}
+
+#hsmp-announcements strong {
+  color: gold;
+}
+
+#hsmp-announcements em {
+  color: gray;
+}
+
+#hsmp-announcements strong em {
+  color: goldenrod;
+}
+
+#hsmp-announcements del {
+  color: red;
+}
+
+#hsmp-announcements code {
+  background-color: rgba(190, 180, 180, 0.671);
+  color: rgb(54, 54, 54);
+  padding: 5px;
+  border-radius: 20px;
+  font-family: 'Google Sans Code', monospace;
+  text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+#hsmp-announcements blockquote {
+  margin-left: 20px;
+  padding: 5px;
+  border-left: 3px white solid;
+  border-right: 1px darkslategrey solid;
+  border-top: 1px darkslategrey solid;
+  border-bottom: 1px darkslategrey solid;
+  background-color: gray;
+  border-radius: 20px;
+}
+
+#hsmp-announcements ul {
+  margin-left: 10px;
+}
+
+#hsmp-announcements ol {
+  margin-left: 10px;
+}
+
+#hsmp-announcements li {
+  font-size: 1em;
+  color: black;
+  text-shadow:
+    1px 1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    -1px -1px 0 white,
+    1px 0 0 white,
+    -1px 0 0 white,
+    0 1px 0 white,
+    0 -1px 0 white,
+    0 0 10px white;
+}
+#hsmp-announcements a {
+}
+
+#hsmp-announcements img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: zoom-in;
+}
+#hsmp-announcements pre {
+  background-color: rgba(190, 180, 180, 0.671);
+}
+
+#hsmp-announcements pre code {
+  background-color: rgba(0, 0, 0, 0);
 }
