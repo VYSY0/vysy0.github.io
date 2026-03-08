@@ -1,4 +1,12 @@
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
+
+const GITHUB_API_URL =
+  'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
+const ANNOUNCEMENT_FILE_PATTERN = /^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/;
+
+let localFileIndexPromise;
+let githubFileIndexPromise;
+const contentCache = new Map();
 
 function getDateFromFileName(filename) {
   const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
@@ -19,8 +27,17 @@ function getSortableDate(filename) {
   return '';
 }
 
+function sortFilesByDate(files) {
+  return [...files].sort((a, b) => {
+    const sortA = getSortableDate(a.name);
+    const sortB = getSortableDate(b.name);
+    return sortB.localeCompare(sortA);
+  });
+}
+
 function displayFilesFromArray(filesArray, container) {
   console.log('Displaying', filesArray.length, 'files');
+  container.innerHTML = '';
 
   filesArray.forEach((file) => {
     const htmlContent = marked.parse(file.content);
@@ -37,103 +54,155 @@ function displayFilesFromArray(filesArray, container) {
   console.log('All files added to page');
 }
 
-async function loadLocalFilesForContainer(container, maxFiles) {
-  console.log('Loading local files...');
-  try {
-    const filenames = ['an_07-03-2026_19-04.md', 'an_07-03-2026_19-10.md'];
-    let loadedFiles = [];
+function buildLocalFileUrl(filename) {
+  return `./a/${filename}`;
+}
 
-    for (const file of filenames) {
-      console.log(`Fetching file: ./a/${file}`);
-      const response = await fetch(`./a/${file}`);
-      console.log(`Response status: ${response.status}`);
-      if (response.ok) {
-        const mdText = await response.text();
-        if (mdText.trim() !== '') {
-          loadedFiles.push({ name: file, content: mdText });
-        }
-      }
+async function fetchFileContent(url) {
+  if (contentCache.has(url)) {
+    return contentCache.get(url);
+  }
+
+  const contentPromise = (async () => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
     }
 
-    loadedFiles.sort((a, b) => {
-      const sortA = getSortableDate(a.name);
-      const sortB = getSortableDate(b.name);
-      return sortB.localeCompare(sortA);
+    return response.text();
+  })().catch((error) => {
+    contentCache.delete(url);
+    throw error;
+  });
+
+  contentCache.set(url, contentPromise);
+  return contentPromise;
+}
+
+async function getLocalFileIndex() {
+  if (!localFileIndexPromise) {
+    localFileIndexPromise = (async () => {
+      const response = await fetch('./a/');
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const files = [...doc.querySelectorAll('a[href]')]
+        .map((link) => link.getAttribute('href') || '')
+        .map((href) => href.split('/').pop()?.split('?')[0] || '')
+        .map((name) => decodeURIComponent(name))
+        .filter((name) => ANNOUNCEMENT_FILE_PATTERN.test(name))
+        .map((name) => ({ name }));
+
+      return sortFilesByDate(
+        files.filter(
+          (file, index, array) =>
+            array.findIndex((item) => item.name === file.name) === index
+        )
+      );
+    })().catch((error) => {
+      localFileIndexPromise = null;
+      throw error;
     });
+  }
 
-    const selectedFiles = loadedFiles.slice(0, maxFiles);
+  return localFileIndexPromise;
+}
 
-    if (selectedFiles.length > 0) {
-      console.log('Local files loaded:', selectedFiles.length);
-      displayFilesFromArray(selectedFiles, container);
-    } else {
+async function getGitHubFileIndex() {
+  if (!githubFileIndexPromise) {
+    githubFileIndexPromise = (async () => {
+      const response = await fetch(GITHUB_API_URL);
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const files = await response.json();
+      if (!Array.isArray(files)) {
+        throw new Error('Invalid GitHub API response');
+      }
+
+      return sortFilesByDate(
+        files
+          .filter((file) => ANNOUNCEMENT_FILE_PATTERN.test(file.name))
+          .map((file) => ({
+            name: file.name,
+            downloadUrl: file.download_url,
+          }))
+      );
+    })().catch((error) => {
+      githubFileIndexPromise = null;
+      throw error;
+    });
+  }
+
+  return githubFileIndexPromise;
+}
+
+async function loadFiles(fileIndex, maxFiles, getUrl) {
+  const selectedFiles = fileIndex.slice(0, maxFiles);
+
+  console.log(
+    'Found files:',
+    selectedFiles.map((file) => file.name)
+  );
+
+  const loadedFiles = await Promise.all(
+    selectedFiles.map(async (file) => {
+      try {
+        const mdText = await fetchFileContent(getUrl(file));
+        if (mdText.trim() === '') {
+          return null;
+        }
+
+        return { name: file.name, content: mdText };
+      } catch (error) {
+        console.error('Error fetching file:', file.name, error);
+        return null;
+      }
+    })
+  );
+
+  return loadedFiles.filter(Boolean);
+}
+
+async function loadAnnouncements(maxFiles, preferLocal) {
+  if (preferLocal) {
+    try {
+      console.log('Trying to load local files');
+      const localFileIndex = await getLocalFileIndex();
+      const localFiles = await loadFiles(localFileIndex, maxFiles, (file) =>
+        buildLocalFileUrl(file.name)
+      );
+
+      if (localFiles.length > 0) {
+        console.log('Local files loaded:', localFiles.length);
+        return localFiles;
+      }
+
       console.warn('No local files found, trying GitHub API');
-      loadFromGitHubForContainer(container, maxFiles);
+    } catch (error) {
+      console.error('Error loading local files:', error);
     }
-  } catch (error) {
-    console.error('Error loading local files:', error);
-    loadFromGitHubForContainer(container, maxFiles);
   }
+
+  const githubFileIndex = await getGitHubFileIndex();
+  const githubFiles = await loadFiles(
+    githubFileIndex,
+    maxFiles,
+    (file) => file.downloadUrl
+  );
+
+  console.log('GitHub files loaded:', githubFiles.length);
+  return githubFiles;
 }
 
-async function loadFromGitHubForContainer(container, maxFiles) {
-  const apiUrl =
-    'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
-
-  try {
-    const res = await fetch(apiUrl);
-    const files = await res.json();
-
-    const mdFiles = files.filter((f) =>
-      f.name.match(/^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/)
-    );
-
-    mdFiles.sort((a, b) => {
-      const sortA = getSortableDate(a.name);
-      const sortB = getSortableDate(b.name);
-      return sortB.localeCompare(sortA);
-    });
-
-    const selectedFiles = mdFiles.slice(0, maxFiles);
-
-    console.log(
-      'Found files:',
-      selectedFiles.map((f) => f.name)
-    );
-
-    if (selectedFiles.length > 0) {
-      for (const file of selectedFiles) {
-        try {
-          const mdResponse = await fetch(file.download_url);
-          const mdText = await mdResponse.text();
-
-          const fileDiv = document.createElement('div');
-          fileDiv.classList.add('file-item');
-
-          const htmlContent = marked.parse(mdText);
-
-          fileDiv.innerHTML = `
-            <div class="file-name">${file.name}</div>
-            <div class="file-content">${htmlContent}</div>
-            <div class="file-date">${getDateFromFileName(file.name)}</div>
-          `;
-          container.appendChild(fileDiv);
-        } catch (error) {
-          console.error('Error fetching file:', file.name, error);
-        }
-      }
-    } else {
-      console.error('No files found');
-      container.innerHTML = '<p>No announcements found</p>';
-    }
-  } catch (error) {
-    console.error('Error fetching files from GitHub:', error);
-    container.innerHTML =
-      '<p>Error loading announcements: ' + error.message + '</p>';
-  }
-}
-
-async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
+export async function showAnnouncements(
+  maxFiles = 5,
+  elementID = 'file-container'
+) {
   console.log(
     `showAnnouncements called with maxFiles=${maxFiles}, elementID=${elementID}`
   );
@@ -150,11 +219,24 @@ async function showAnnouncements(maxFiles = 5, elementID = 'file-container') {
   console.log('Is localhost:', isLocalhost);
 
   if (isLocalhost) {
-    console.log('Running on localhost, loading local files');
-    await loadLocalFilesForContainer(container, maxFiles);
+    console.log('Running on localhost');
   } else {
-    console.log('Running on production, loading from GitHub');
-    await loadFromGitHubForContainer(container, maxFiles);
+    console.log('Running on production');
+  }
+
+  try {
+    const files = await loadAnnouncements(maxFiles, isLocalhost);
+
+    if (files.length > 0) {
+      displayFilesFromArray(files, container);
+    } else {
+      console.error('No files found');
+      container.innerHTML = '<p>No announcements found</p>';
+    }
+  } catch (error) {
+    console.error('Error loading announcements:', error);
+    container.innerHTML =
+      '<p>Error loading announcements: ' + error.message + '</p>';
   }
 }
 
