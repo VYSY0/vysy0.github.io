@@ -58,11 +58,11 @@
             const match = filename.match(/_(\d{2})-(\d{2})-(\d{4})_(\d{2})-(\d{2})/);
             if (match) {
                 const [, day, month, year, hour, min] = match;
-                return `${day} ${month} ${year} ${hour}:${min}`;
+                return `${day}/${month}/${year} ${hour}:${min} UTC +1`;
             }
             // Fallback dla starego formatu
             const oldMatch = filename.match(/_(\d{2}\+\d{2}\+\d{4})/);
-            return oldMatch ? oldMatch[1].replace(/\+/g, ' ') : 'Unknown date';
+            return oldMatch ? oldMatch[1].replace(/\+/g, '/') : 'Unknown date';
         }
 
         // Funkcja do wyciągnięcia daty do sortowania (YYYYMMDDHHMI)
