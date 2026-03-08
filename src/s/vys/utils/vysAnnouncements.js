@@ -1,7 +1,7 @@
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
 
 const GITHUB_API_URL =
-  'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/pages/vys/a';
+  'https://api.github.com/repos/VYSY0/vysy0.github.io/contents/a';
 const ANNOUNCEMENT_FILE_PATTERN = /^an_\d{2}-\d{2}-\d{4}_\d{2}-\d{2}\.md$/;
 
 let localFileIndexPromise;
@@ -55,7 +55,7 @@ function displayFilesFromArray(filesArray, container) {
 }
 
 function buildLocalFileUrl(filename) {
-  return `./a/${filename}`;
+  return `../../../../a/${filename}`;
 }
 
 async function fetchFileContent(url) {
@@ -82,7 +82,7 @@ async function fetchFileContent(url) {
 async function getLocalFileIndex() {
   if (!localFileIndexPromise) {
     localFileIndexPromise = (async () => {
-      const response = await fetch('./a/');
+      const response = await fetch('../../../../a/');
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
