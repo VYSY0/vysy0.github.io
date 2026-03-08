@@ -6,6 +6,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
 }
 
 body {
@@ -265,6 +266,7 @@ hr {
 .project-image:hover {
   transform: scale(1.05) rotateY(20deg);
 }
+
 @media (max-width: 1000px) {
   #main-nav {
     position: static;

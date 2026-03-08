@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../../src/v/vys/s/homePage/VysHomePage.css" />
   <link rel="stylesheet" href="../../src/v/bg.css" />
+  <link rel="stylesheet" href="../../src/v/announcements.css" />
   <title>Vys The Vysy0</title>
 
   <link rel="icon" href="../../src/v/vys/m/logo/vys-pfp.webp" type="image/webp" />
@@ -14,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet" />
+
 </head>
 
 <body>
@@ -37,8 +39,10 @@
     <main>
       <section id="content">
         <div id="hsmp-announcements-preview">
-          <h1 id="animationH1">HiraethSMP Announcements</h1>
+          <h1 id="animationH1">HSMP<br>News Preview</h1>
+          <hr>
           <div id="hsmp-announcements"></div>
+          <div id="hsmp-link">More On:<br><a>HSMP Main Website</a></div>
         </div>
         <div id="welcomeMSG">
           <h1 id="animationH1">Hello!</h1>
@@ -165,6 +169,12 @@
       © 2026–2027 Vysy0. Licensed under CC BY 4.0.
     </p>
   </footer>
+
+  <script type="module">
+    import { showAnnouncements } from '../../src/s/vys/utils/vysAnnouncements.js';
+
+    showAnnouncements(1, 'hsmp-announcements');
+  </script>
 </body>
 
 </html>
