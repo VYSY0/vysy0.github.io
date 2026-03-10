@@ -1,0 +1,28 @@
+#hsmp-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  grid-template-areas: 'news changelog';
+  gap: 20px;
+  width: calc(100% - 40px);
+  margin: 20px;
+  align-self: center;
+  justify-items: center;
+}
+
+#hsmp-announcements-preview {
+  grid-area: news;
+}
+
+#hsmp-changelogs-preview {
+  grid-area: changelog;
+}
+
+@media (max-width: 1000px) {
+  #hsmp-preview {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'news'
+      'changelog';
+  }
+}

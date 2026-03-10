@@ -32,10 +32,12 @@ header {
 #content {
   padding: 20px;
   display: flex;
-  margin: auto 200px;
+  margin: 40px auto;
+  width: auto;
+  max-width: 1000px;
   box-sizing: border-box;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 20px white;
   border-radius: 40px;
@@ -49,6 +51,8 @@ header {
 
 #content a,
 #content h1,
+#content h2,
+#content h3,
 #content p {
   color: white;
   text-shadow: 0 0 10px white;
@@ -57,6 +61,35 @@ header {
 #content h1 {
   text-align: center;
   font-size: 2.5em;
+
+  height: auto;
+  width: auto;
+
+  transition: transform 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content h2 {
+  text-align: center;
+  font-size: 2em;
+
+  height: auto;
+  width: auto;
+
+  transition: transform 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content h3 {
+  text-align: center;
+  font-size: 1.5em;
+
+  height: auto;
+  width: auto;
 
   transition: transform 1s ease;
   display: flex;
@@ -302,10 +335,36 @@ hr {
   }
 
   #content {
-    margin: auto 20px;
+    margin: 20px auto;
+    width: calc(100% - 40px);
+    justify-content: center;
   }
 
   #projects-grid {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+#image {
+  text-align: center;
+  padding: 20px 20px;
+  background-color: black;
+  border-radius: 20px;
+  box-shadow: 0 0 20px white;
+
+  transition:
+    box-shadow 0.3s ease-in-out,
+    transform 0.3s ease-in;
+}
+
+#image img {
+  max-width: 50vw;
+  max-height: auto;
+}
+
+#image:hover {
+  box-shadow:
+    0 10px 20px white,
+    0 -10px 20px white;
+  transform: translateY(-10px);
 }

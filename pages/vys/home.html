@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../../src/v/vys/s/homePage/VysHomePage.css" />
   <link rel="stylesheet" href="../../src/v/bg.css" />
   <link rel="stylesheet" href="../../src/v/announcements.css" />
+  <link rel="stylesheet" href="../../src/v/changelogs.css" />
+  <link rel="stylesheet" href="../../src/v/hsmp-preview-container.css" />
   <title>Vys The Vysy0</title>
 
   <link rel="icon" href="../../src/v/vys/m/logo/vys-pfp.webp" type="image/webp" />
@@ -38,17 +40,29 @@
     <nav id="main-nav">
       <div id="nav-home"><a>Home</a></div>
       <div id="nav-projects"><a>Projects</a></div>
-      <div id="nav-projects"><a>Contact</a></div>
-      <div id="nav-projects"><a>Credits</a></div>
+      <div id="nav-contact"><a>Contact</a></div>
     </nav>
     <main>
       <section id="content">
-        <div id="hsmp-announcements-preview">
-          <h1 id="animationH1">HSMP<br>News Preview</h1>
-          <hr>
-          <div id="hsmp-announcements"></div>
-          <div id="hsmp-link">More On:<br><a>HSMP Main Website</a></div>
-        </div>
+        <h1 id="animationH1">HiraethSMP</h1>
+        <section id="hsmp-preview">
+          <div id="hsmp-announcements-preview">
+            <h1 id="animationH1">Latest<br>News</h1>
+            <hr>
+            <div id="hsmp-announcements"></div>
+            <div id="hsmp-link">
+              <p>More On:</p><a>HSMP Main Website</a>
+            </div>
+          </div>
+          <div id="hsmp-changelogs-preview">
+            <h1 id="animationH1">Latest<br>Changes</h1>
+            <hr>
+            <div id="hsmp-changelogs"></div>
+            <div id="hsmp-link">
+              <p>More On:</p><a>HSMP Main Website</a>
+            </div>
+          </div>
+        </section>
         <div id="welcomeMSG">
           <h1 id="animationH1">Hello!</h1>
           <p>
@@ -178,9 +192,10 @@
   <script type="module">
     import { showAnnouncements } from '../../src/s/vys/utils/vysAnnouncements.js';
     import { setupImageInteractions } from '../../src/s/anIMGClickListener.js';
-
+    import { showChangelogs } from "../../src/s/vys/utils/changelog.js"
     setupImageInteractions('hsmp-announcements');
     showAnnouncements(1, 'hsmp-announcements');
+    showChangelogs(1, 'hsmp-changelogs')
   </script>
 </body>
 

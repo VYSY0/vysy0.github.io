@@ -23,10 +23,10 @@ async function animateH1(rot, element) {
   const h1 = element || document.getElementById('animationH1');
 
   if (!h1) return;
-  
+
   // Force reflow to ensure transition starts from current state
   h1.offsetHeight;
-  
+
   h1.style.fontSize = '50px';
   h1.style.transform = `rotate(${rot}deg)`;
   await wait(500);
@@ -71,6 +71,7 @@ logo.addEventListener('click', onLogoClick);
 const navHome = document.getElementById('nav-home');
 const navProjects = document.getElementById('nav-projects');
 const navContact = document.getElementById('nav-contact');
+const navCredits = document.getElementById('nav-credits');
 
 async function fadeOutAndNavigate(url) {
   if (background) background.classList.remove('loaded');
@@ -92,4 +93,8 @@ navProjects.addEventListener('click', async (e) => {
 
 navContact.addEventListener('click', async (e) => {
   await fadeOutAndNavigate('contact.html');
+});
+
+navCredits.addEventListener('click', async (e) => {
+  await fadeOutAndNavigate(`credits.html`);
 });

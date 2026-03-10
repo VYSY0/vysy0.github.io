@@ -58,7 +58,7 @@
 body.image-overlay-open {
   overflow: hidden;
 }
-#hsmp-announcements-preview {
+#hsmp-changelogs-preview {
   background-color: rgba(39, 23, 43, 0.6);
   border-radius: 20px;
   padding: 20px;
@@ -66,20 +66,22 @@ body.image-overlay-open {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+
+  aspect-ratio: 1/1;
 
   z-index: 1;
 
   margin: 0 auto; /* centrowanie i brak wychodzenia za boki */
-  width: 100%; /* zajmuje całą szerokość rodzica */
-  max-width: 600px; /* ograniczenie do 600px */
+  width: auto;
+  max-width: 600px;
   height: auto;
   max-height: 600px;
 
   outline: 2px solid rgb(85, 50, 94);
   box-shadow: 0 0 20px rgb(159, 110, 172);
 }
-#hsmp-announcements-preview h1 {
+
+#hsmp-changelogs-preview h1 {
   white-space: normal;
   overflow-wrap: break-word;
   font-size: 2.5em;
@@ -95,7 +97,7 @@ body.image-overlay-open {
     0 0 10px rgb(214, 196, 235);
 }
 
-#hsmp-announcements {
+#hsmp-changelogs {
   display: flex;
   flex-direction: column;
 
@@ -103,7 +105,7 @@ body.image-overlay-open {
   height: auto;
   min-width: 0;
   max-width: none;
-  aspect-ratio: auto;
+  aspect-ratio: 1/1;
 
   padding: 20px;
   gap: 20px;
@@ -119,7 +121,7 @@ body.image-overlay-open {
   border-radius: 5px;
 }
 
-#hsmp-announcements h1 {
+#hsmp-changelogs h1 {
   text-align: center;
   color: rgb(220, 144, 241);
   text-shadow:
@@ -137,7 +139,7 @@ body.image-overlay-open {
   text-wrap: wrap;
 }
 
-#hsmp-announcements h2 {
+#hsmp-changelogs h2 {
   color: rgb(193, 125, 212);
   text-align: center;
   text-shadow:
@@ -154,7 +156,7 @@ body.image-overlay-open {
   font-size: 35px;
 }
 
-#hsmp-announcements h3 {
+#hsmp-changelogs h3 {
   color: rgb(176, 100, 197);
 
   text-shadow:
@@ -172,7 +174,7 @@ body.image-overlay-open {
   font-size: 30px;
 }
 
-#hsmp-announcements h4 {
+#hsmp-changelogs h4 {
   color: rgb(194, 92, 223);
 
   text-shadow:
@@ -190,7 +192,7 @@ body.image-overlay-open {
   font-size: 25px;
 }
 
-#hsmp-announcements h5 {
+#hsmp-changelogs h5 {
   color: rgb(118, 45, 138);
 
   text-shadow:
@@ -208,7 +210,7 @@ body.image-overlay-open {
   font-size: 20px;
 }
 
-#hsmp-announcements h6 {
+#hsmp-changelogs h6 {
   color: rgb(159, 15, 199);
 
   text-shadow:
@@ -226,39 +228,39 @@ body.image-overlay-open {
   font-size: 15px;
 }
 
-#hsmp-announcements p {
+#hsmp-changelogs p {
   color: rgb(214, 196, 235);
   text-shadow:
-    1px 1px 0 black,
-    -1px 1px 0 black,
-    1px -1px 0 black,
-    -1px -1px 0 black,
-    1px 0 0 black,
-    -1px 0 0 black,
-    0 1px 0 black,
-    0 -1px 0 black,
+    2px 2px 0 black,
+    -2px 2px 0 black,
+    2px -2px 0 black,
+    -2px -2px 0 black,
+    2px 0 0 black,
+    -2px 0 0 black,
+    0 2px 0 black,
+    0 -2px 0 black,
     0 0 10px rgb(214, 196, 235);
 
-  font-size: 15px;
+  font-size: 10px;
 }
 
-#hsmp-announcements strong {
+#hsmp-changelogs strong {
   color: gold;
 }
 
-#hsmp-announcements em {
+#hsmp-changelogs em {
   color: gray;
 }
 
-#hsmp-announcements strong em {
+#hsmp-changelogs strong em {
   color: goldenrod;
 }
 
-#hsmp-announcements del {
+#hsmp-changelogs del {
   color: red;
 }
 
-#hsmp-announcements code {
+#hsmp-changelogs code {
   background-color: rgba(190, 180, 180, 0.671);
   color: rgb(54, 54, 54);
   padding: 5px;
@@ -267,7 +269,7 @@ body.image-overlay-open {
   text-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
-#hsmp-announcements blockquote {
+#hsmp-changelogs blockquote {
   margin-left: 20px;
   padding: 5px;
   border-left: 3px white solid;
@@ -278,15 +280,15 @@ body.image-overlay-open {
   border-radius: 20px;
 }
 
-#hsmp-announcements ul {
+#hsmp-changelogs ul {
   margin-left: 10px;
 }
 
-#hsmp-announcements ol {
+#hsmp-changelogs ol {
   margin-left: 10px;
 }
 
-#hsmp-announcements li {
+#hsmp-changelogs li {
   font-size: 1em;
   color: black;
   text-shadow:
@@ -300,7 +302,7 @@ body.image-overlay-open {
     0 -1px 0 white,
     0 0 10px white;
 }
-#hsmp-announcements a {
+#hsmp-changelogs a {
   color: rgb(127, 127, 233);
   text-shadow:
     2px 2px 0 black,
@@ -314,40 +316,39 @@ body.image-overlay-open {
     0 0 10px rgb(127, 127, 233);
 }
 
-#hsmp-announcements img {
+#hsmp-changelogs img {
   width: 100%;
   height: auto;
   border-radius: 10px;
   cursor: zoom-in;
 }
-#hsmp-announcements pre {
+#hsmp-changelogs pre {
   background-color: rgba(190, 180, 180, 0.671);
 }
 
-#hsmp-announcements pre code {
+#hsmp-changelogs pre code {
   background-color: rgba(0, 0, 0, 0);
 }
 
-#hsmp-link {
-  text-align: center;
-  margin: 0;
-}
-
 @media (max-width: 1000px) {
-  #hsmp-announcements {
+  #hsmp-changelogs-preview {
+    z-index: auto;
+  }
+  #hsmp-changelogs {
     width: 100%;
     height: auto;
     min-width: 0;
     max-width: 100%;
+    aspect-ratio: auto;
   }
 }
 
 @media (max-width: 560px) {
-  #hsmp-announcements {
+  #hsmp-changelogs {
     width: 100%;
     max-width: 100%;
   }
-  #hsmp-announcements-preview {
+  #hsmp-changelogs-preview {
     width: 100%;
     max-width: 100%;
   }
