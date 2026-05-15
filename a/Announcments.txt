@@ -1,3 +1,0 @@
-Announcments write with an_date_hour
-
-Example: an_08-03-2026_12-06.md
