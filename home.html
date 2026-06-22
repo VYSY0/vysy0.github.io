@@ -6,6 +6,34 @@
   <title>Home</title>
 
   <link rel="stylesheet" href="style/home.css">
+
+  <style>
+    #terrafirma {
+      color: aqua;
+    }
+
+    #gallery {
+      padding: 20px;
+      margin: 20px auto;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: bisque;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #gallery img {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body id="body">
   <video autoplay muted loop preload="auto" src="videos/9694806-hd_1920_1080_25fps.mp4" id="bg"></video>
@@ -25,19 +53,24 @@
 
   <section id="about" style="opacity: 0;">
     <h2>Welcome</h2>
-    <p>Hello there all! My name's Vysy0! An Addon Creator, Website Developer (HTML5, CSS, JS) and voxel model artist!</p>
-    <p>This website was made to quickly share my projects, news, services and to give anyone a way to contact me when i'm needed!</p>
-    <p>This is where i begin my cool adventure with sharing my work and entertaining others! </p>
+    <p>Hello there! My name's Wiktor Chojnacki (Vysy0)! A developer specialized in making clean, modern websites and modding the game called Minecraft!</p>
+    <p>I have learned coding (HTML5, CSS, JS, JSON and Typescript) myself. And i love it as it is my Hobby and dream job to do in my life.</p>
   </section>
 
   <section id="projects" style="opacity: 0;">
     <h2>What can I Find Here?</h2>
-    <p>You can find here my videos, latest news surrounding HiraSMP server, cost of my services as an Website Developer/Skin Maker/Texture Pack Maker/Addon Maker and yada yada...</p>
+    <p>I offer here freelancing services with possibillity of look in to the source.</p>
+    <p>I can make simple websites, MC addons, Voxel models (Fully Textured, and not textured), plus i offer translation services (English <-> Polish), such as translating websites, games, addons, videos and scripts. </p>
+    <p>Before, i have translated a game called <a id="terrafirma" href="https://store.steampowered.com/app/3422270/Terra_Firma_2/" target="_blank">"Terrafirma 2"</a></p>
+    <section id="gallery">
+      <img src="./img/mehwoot_mentioning_vys1.jpg" alt="mehwoot_mentioning_vys1">
+      <img src="./img/mehwoot_mentioning_vys2.jpg" alt="mehwoot_mentioning_vys2">
+    </section>
   </section>
 
   <section id="contact" style="opacity: 0;">
     <h2>Contact</h2>
-    <p>Get in touch with me through various channels.</p>
+    
   </section>
 
   <script type="module" src="scripts/mainScripts/homeAnimation.js"></script>
